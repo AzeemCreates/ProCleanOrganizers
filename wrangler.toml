@@ -8,17 +8,34 @@ pages_build_output_dir = "dist/client"
 compatibility_flags = ["nodejs_compat"]
 
 # ---------------------------------------------------------------------------
-# KV namespace — stores all editable site content (text, prices, image URLs).
-# SETUP (do this once in Cloudflare dashboard, then uncomment the block below):
-# 1. Workers & Pages → KV → Create namespace → name it "proclean-site-content"
-# 2. Copy the namespace ID and paste it as the "id" value below
-# 3. Uncomment the [[kv_namespaces]] block
-# 4. Seed the KV: wrangler kv:key put --namespace-id=<YOUR_ID> "site-content" --path=data/site-content.seed.json
-# Until then, the site reads from data/site-content.seed.json (fully functional, admin saves won't persist).
+# KV namespace — makes admin edits PERSIST (survive redeploys).
+#
+# RECOMMENDED: bind it in the Cloudflare dashboard (no repo edit / redeploy-with-ID
+# dance needed):
+#   1. Workers & Pages → KV → Create a namespace → name it "proclean-site-content"
+#   2. Your Pages project → Settings → Bindings (or Functions → KV namespace
+#      bindings) → Add → Variable name: SITE_CONTENT → pick that namespace → Save
+#      for Production (and Preview if you want preview builds to persist too)
+#   3. Redeploy (Deployments → latest → Retry deployment) so the binding takes effect
+# No manual seeding needed: while KV is empty the site serves the bundled seed
+# content, and the FIRST admin save writes the live copy into KV automatically.
+#
+# ALTERNATIVE (config-based): if the dashboard shows KV bindings as "managed by
+# wrangler.toml", paste the namespace ID below and uncomment this block instead.
 # ---------------------------------------------------------------------------
 # [[kv_namespaces]]
 # binding = "SITE_CONTENT"
 # id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
+
+# ---------------------------------------------------------------------------
+# CUSTOM DOMAIN — procleanorganizers.com  (NOT connected yet — do not enable)
+# When ready to go live on the real domain:
+#   1. Pages project → Custom domains → Set up a domain → procleanorganizers.com
+#   2. Repeat for www.procleanorganizers.com
+# Cloudflare auto-creates the CNAME (DNS is already on Cloudflare). This does NOT
+# touch MX/SPF/DKIM, so email is unaffected. Custom domains are configured in the
+# dashboard, not here — this note is just the reminder/checklist for when you're ready.
+# ---------------------------------------------------------------------------
 
 # ---------------------------------------------------------------------------
 # Secrets — do NOT put real values here. Set them via:
