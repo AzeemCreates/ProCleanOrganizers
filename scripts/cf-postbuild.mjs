@@ -38,7 +38,11 @@ writeFileSync(
 
 export default {
   async fetch(request, env, ctx) {
-    if (env.ASSETS) {
+    // Only GET/HEAD requests can be static files. POST/PUT/etc (API routes,
+    // form submissions) always go straight to SSR. Cloudflare's asset server
+    // returns 405 (not 404) for non-GET methods, so routing those through it
+    // first would incorrectly short-circuit before ever reaching the app.
+    if (env.ASSETS && (request.method === "GET" || request.method === "HEAD")) {
       const assetResponse = await env.ASSETS.fetch(request);
       if (assetResponse.status !== 404) {
         return assetResponse;
