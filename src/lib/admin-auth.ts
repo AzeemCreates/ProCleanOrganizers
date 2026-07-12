@@ -2,14 +2,17 @@
 // database - just a shared password (ADMIN_PASSWORD env var) and a signed,
 // httpOnly cookie. Good enough for a single non-technical site owner.
 
+import { getEnvVar } from "./cloudflare-env";
+
 export const SESSION_COOKIE_NAME = "proclean_admin_session";
 const SESSION_DURATION_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
 
-function getSecret(): string {
-  const password = process.env.ADMIN_PASSWORD;
+async function getSecret(): Promise<string> {
+  const password = await getEnvVar("ADMIN_PASSWORD");
   if (!password) {
     throw new Error(
-      "ADMIN_PASSWORD is not set. Add it to your .env file to enable /admin.",
+      "ADMIN_PASSWORD is not set. Add it to your .env file locally, or as an " +
+        "environment variable/secret in the Cloudflare Pages dashboard.",
     );
   }
   return password;
@@ -17,7 +20,7 @@ function getSecret(): string {
 
 async function sign(value: string): Promise<string> {
   const { createHmac } = await import("node:crypto");
-  return createHmac("sha256", getSecret()).update(value).digest("hex");
+  return createHmac("sha256", await getSecret()).update(value).digest("hex");
 }
 
 export async function createSessionToken(): Promise<string> {
@@ -44,7 +47,7 @@ export async function isValidSessionToken(token: string | undefined | null): Pro
 
 export async function checkPassword(candidate: string): Promise<boolean> {
   const { timingSafeEqual } = await import("node:crypto");
-  const expected = Buffer.from(getSecret());
+  const expected = Buffer.from(await getSecret());
   const actual = Buffer.from(candidate);
   if (actual.length !== expected.length) return false;
   return timingSafeEqual(actual, expected);

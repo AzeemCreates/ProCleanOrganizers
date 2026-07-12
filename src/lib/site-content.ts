@@ -12,6 +12,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import seedJson from "../../data/site-content.seed.json";
+import { getCloudflareEnv } from "./cloudflare-env";
 
 const serviceSchema = z.object({
   name: z.string().trim().min(1).max(120),
@@ -95,15 +96,9 @@ const KV_KEY = "site-content";
 
 /** Returns the SITE_CONTENT KV namespace if running on Cloudflare, else null. */
 async function getKV(): Promise<{ get(k: string): Promise<string | null>; put(k: string, v: string): Promise<void> } | null> {
-  try {
-    const { getEvent } = await import("vinxi/http");
-    const event = getEvent();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const kv = (event?.context as any)?.cloudflare?.env?.SITE_CONTENT;
-    return kv ?? null;
-  } catch {
-    return null;
-  }
+  const cfEnv = await getCloudflareEnv();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return (cfEnv?.SITE_CONTENT as any) ?? null;
 }
 
 // Bundled at build time — always available, even on Cloudflare Workers where
