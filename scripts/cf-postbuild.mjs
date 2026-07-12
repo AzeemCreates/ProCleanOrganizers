@@ -38,6 +38,13 @@ writeFileSync(
 
 export default {
   async fetch(request, env, ctx) {
+    // Expose Cloudflare bindings (secrets like ADMIN_PASSWORD, KV namespaces
+    // like SITE_CONTENT) to the app. Cloudflare hands them to us here as 'env';
+    // the app reads them back via globalThis in src/lib/cloudflare-env.ts.
+    // These bindings are identical for every request in a deployment, so
+    // stashing them on the global is safe (not request-specific data).
+    globalThis.__CF_ENV__ = env;
+
     // Only GET/HEAD requests can be static files. POST/PUT/etc (API routes,
     // form submissions) always go straight to SSR. Cloudflare's asset server
     // returns 405 (not 404) for non-GET methods, so routing those through it

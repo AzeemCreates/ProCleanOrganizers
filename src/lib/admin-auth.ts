@@ -8,7 +8,7 @@ export const SESSION_COOKIE_NAME = "proclean_admin_session";
 const SESSION_DURATION_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
 
 async function getSecret(): Promise<string> {
-  const password = await getEnvVar("ADMIN_PASSWORD");
+  const password = getEnvVar("ADMIN_PASSWORD");
   if (!password) {
     throw new Error(
       "ADMIN_PASSWORD is not set. Add it to your .env file locally, or as an " +

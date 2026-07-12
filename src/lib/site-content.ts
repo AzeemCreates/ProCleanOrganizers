@@ -96,7 +96,7 @@ const KV_KEY = "site-content";
 
 /** Returns the SITE_CONTENT KV namespace if running on Cloudflare, else null. */
 async function getKV(): Promise<{ get(k: string): Promise<string | null>; put(k: string, v: string): Promise<void> } | null> {
-  const cfEnv = await getCloudflareEnv();
+  const cfEnv = getCloudflareEnv();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return (cfEnv?.SITE_CONTENT as any) ?? null;
 }
