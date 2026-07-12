@@ -2,7 +2,10 @@ name = "proclean-organizers"
 compatibility_date = "2024-09-23"
 
 # Build output directory for Cloudflare Pages
-pages_build_output_dir = ".output/public"
+pages_build_output_dir = "dist/client"
+
+# Required for Node.js built-ins (crypto, fs, path) used in server functions
+compatibility_flags = ["nodejs_compat"]
 
 # ---------------------------------------------------------------------------
 # KV namespace — stores all editable site content (text, prices, image URLs).
