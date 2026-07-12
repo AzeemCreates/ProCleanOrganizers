@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-label="No photo uploaded yet">
+  <rect width="400" height="300" fill="#eef0f4"/>
+  <g fill="none" stroke="#9aa5b8" stroke-width="2">
+    <rect x="120" y="105" width="160" height="110" rx="6"/>
+    <circle cx="160" cy="140" r="14"/>
+    <path d="M120 200 L170 160 L210 190 L240 165 L280 200" />
+  </g>
+  <text x="200" y="245" font-family="system-ui, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle">No photo uploaded yet</text>
+</svg>

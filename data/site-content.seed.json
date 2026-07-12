@@ -1,0 +1,375 @@
+{
+  "business": {
+    "name": "ProClean Organizers",
+    "slogan": "Tidy is Mighty.",
+    "owner": "Mujahid Ibn Abdellah",
+    "established": 2020,
+    "phone": "(609) 359-3992",
+    "email": "ProCleanOrganizers2020@gmail.com",
+    "serviceAreaSummary": "Serving Manhattan, Queens, and select areas of the Bronx and Brooklyn. Available across Westchester, Long Island, Northern New Jersey, and Connecticut."
+  },
+  "mission": "At ProClean Organizers, we believe that order creates strength. We transform cluttered spaces into clean, functional environments that give our clients more time, less stress, and lasting peace of mind. Tidy is Mighty.",
+  "images": {
+    "logo": "/uploads/logo-circle.png",
+    "logoFull": "/uploads/logo-full.png"
+  },
+  "methodSteps": [
+    {
+      "name": "Assess",
+      "description": "Evaluate the space, identify challenges, and determine goals."
+    },
+    {
+      "name": "Clean",
+      "description": "Remove dust, dirt, stains, and environmental clutter to create a fresh foundation."
+    },
+    {
+      "name": "Declutter",
+      "description": "Identify items no longer needed for donation, recycling, sale, or disposal."
+    },
+    {
+      "name": "Consolidate",
+      "description": "Gather similar items to eliminate duplication."
+    },
+    {
+      "name": "Categorize",
+      "description": "Group belongings by function and frequency of use."
+    },
+    {
+      "name": "Organize",
+      "description": "Build customized systems for efficiency and accessibility."
+    },
+    {
+      "name": "Label",
+      "description": "Clearly identify storage locations and zones."
+    },
+    {
+      "name": "Maintain",
+      "description": "Provide guidance to sustain the organized environment."
+    },
+    {
+      "name": "Follow Up",
+      "description": "Optional visits to evaluate effectiveness and adjust over time."
+    }
+  ],
+  "serviceCategories": [
+    {
+      "category": "Home Organization",
+      "services": [
+        {
+          "name": "Bedroom Organization",
+          "description": "Organizing clothing, furniture, personal items, and storage to create a peaceful, functional bedroom.",
+          "session": "2 to 4 hours"
+        },
+        {
+          "name": "Closet Organization",
+          "description": "Sorting, decluttering, categorizing, folding, hanging, and maximizing closet space.",
+          "session": "2 to 4 hours"
+        },
+        {
+          "name": "Kitchen Organization",
+          "description": "Organizing cabinets, drawers, countertops, cookware, food storage, and workflow.",
+          "session": "2 to 4 hours"
+        },
+        {
+          "name": "Pantry Organization",
+          "description": "Sorting food items, creating zones, labeling categories, and improving accessibility.",
+          "session": "2 to 4 hours"
+        },
+        {
+          "name": "Bathroom Organization",
+          "description": "Organizing toiletries, medications, linens, and storage while reducing clutter.",
+          "session": "2 to 4 hours"
+        },
+        {
+          "name": "Living Room Organization",
+          "description": "Decluttering, furniture arrangement, and organization systems for functional living spaces.",
+          "session": "2 to 4 hours"
+        },
+        {
+          "name": "Home Office Organization",
+          "description": "Organizing workspaces, supplies, files, and workflow systems.",
+          "session": "2 to 4 hours"
+        },
+        {
+          "name": "Garage Organization",
+          "description": "Creating storage zones for tools, equipment, seasonal items, and household supplies.",
+          "session": "2 to 4 hours"
+        },
+        {
+          "name": "Basement and Storage Area Organization",
+          "description": "Sorting, consolidating, and organizing long-term storage areas.",
+          "session": "2 to 4 hours"
+        }
+      ],
+      "image": "/uploads/home-organization.png"
+    },
+    {
+      "category": "Space Planning and Functional Design",
+      "services": [
+        {
+          "name": "Space Planning Consultation",
+          "description": "Evaluating current use of a space and designing systems for efficiency and accessibility.",
+          "session": "2 to 4 hours"
+        },
+        {
+          "name": "Room Layout Optimization",
+          "description": "Rearranging furniture and organizing spaces to improve flow and comfort.",
+          "session": "2 to 4 hours"
+        }
+      ],
+      "image": "/uploads/space-planning.png"
+    },
+    {
+      "category": "Decluttering and Downsizing",
+      "services": [
+        {
+          "name": "General Decluttering",
+          "description": "Identifying unnecessary items and building systems to reduce clutter long-term.",
+          "session": "2 to 4 hours"
+        },
+        {
+          "name": "Downsizing Assistance",
+          "description": "Helping clients reduce possessions during moves or lifestyle changes.",
+          "session": "2 to 4 hours"
+        },
+        {
+          "name": "Estate Consolidation and Organization",
+          "description": "Assisting families with organizing and consolidating belongings during estate transitions.",
+          "session": "2 to 4 hours"
+        }
+      ],
+      "image": "/uploads/decluttering.png"
+    },
+    {
+      "category": "Moving and Transition Services",
+      "services": [
+        {
+          "name": "Move Preparation",
+          "description": "Decluttering and organizing prior to a move.",
+          "session": "2 to 4 hours"
+        },
+        {
+          "name": "Packing Assistance",
+          "description": "Organizing and packing belongings systematically.",
+          "session": "2 to 4 hours"
+        },
+        {
+          "name": "Unpacking and Home Setup",
+          "description": "Establishing organized systems after a move.",
+          "session": "2 to 4 hours"
+        }
+      ]
+    },
+    {
+      "category": "Specialized Organizing",
+      "services": [
+        {
+          "name": "Paper Management",
+          "description": "Sorting and creating filing systems for personal and business documents.",
+          "session": "2 to 4 hours"
+        },
+        {
+          "name": "Photo and Memorabilia Organization",
+          "description": "Sorting, categorizing, and preserving photos and sentimental items.",
+          "session": "2 to 4 hours"
+        },
+        {
+          "name": "Digital Organization",
+          "description": "Organizing electronic files, folders, and digital records.",
+          "session": "2 to 4 hours"
+        },
+        {
+          "name": "Time Management and Productivity Systems",
+          "description": "Building routines and systems that improve productivity.",
+          "session": "2 to 4 hours"
+        },
+        {
+          "name": "Hoarding and Chronic Disorganization Support",
+          "description": "Compassionate, judgment free, sustainable progress at the client's pace.",
+          "session": "2 to 4 hours"
+        },
+        {
+          "name": "Senior Organizing Services",
+          "description": "Helping older adults simplify living spaces and maintain safe, accessible environments.",
+          "session": "2 to 4 hours"
+        }
+      ]
+    },
+    {
+      "category": "Clean First Organizing Method",
+      "services": [
+        {
+          "name": "Deep Cleaning and Organizing Preparation",
+          "description": "Removing dust, dirt, stains, and debris before organizing begins; cleanliness is the foundation of the method.",
+          "session": "2 to 4 hours"
+        }
+      ]
+    },
+    {
+      "category": "Donation, Recycling, and Disposal",
+      "services": [
+        {
+          "name": "Donation Coordination",
+          "description": "Sorting and preparing items for donation.",
+          "session": "1 to 4 hours"
+        },
+        {
+          "name": "Donation Drop-Off Service",
+          "description": "Transporting approved items to local donation centers.",
+          "session": "Varies"
+        },
+        {
+          "name": "Recycling Coordination",
+          "description": "Identifying recyclable items and coordinating disposal.",
+          "session": "1 to 4 hours"
+        },
+        {
+          "name": "Paper Shredding and Special Disposal Coordination",
+          "description": "Assistance with sensitive documents, electronics, and household materials through community disposal events.",
+          "session": "Varies"
+        }
+      ]
+    },
+    {
+      "category": "À La Carte",
+      "services": [
+        {
+          "name": "Online Marketplace Listing Assistance",
+          "description": "Photographing, listing, and preparing items for sale online.",
+          "session": "1 to 4 hours"
+        },
+        {
+          "name": "Furniture Rearrangement",
+          "description": "Improving room functionality through layout adjustments.",
+          "session": "1 to 4 hours"
+        },
+        {
+          "name": "Labeling Systems",
+          "description": "Customized labels and identification systems.",
+          "session": "1 to 4 hours"
+        },
+        {
+          "name": "Cable Management",
+          "description": "Organizing and concealing wires for safety and appearance.",
+          "session": "1 to 4 hours"
+        },
+        {
+          "name": "Entryway Drop Zone Creation",
+          "description": "Dedicated space for keys, mail, bags, and daily essentials.",
+          "session": "1 to 4 hours"
+        },
+        {
+          "name": "Light Painting and Minor Home Improvements",
+          "description": "Basic painting, shelving installation, and organizational enhancements.",
+          "session": "1 to 4 hours"
+        }
+      ]
+    },
+    {
+      "category": "Follow Up Maintenance",
+      "services": [
+        {
+          "name": "Organizing System Evaluation",
+          "description": "Scheduled visits at 3, 6, or 9 months to assess systems and adjust as needed.",
+          "session": "1 to 4 hours"
+        }
+      ]
+    }
+  ],
+  "packages": [
+    {
+      "name": "The Mighty Reset",
+      "summary": "A single organizing project: closet, pantry, home office, bedroom, or similar.",
+      "includes": [
+        "Initial assessment",
+        "Decluttering guidance",
+        "Cleaning and organizing preparation",
+        "Customized organizing solutions",
+        "Donation and recycling recommendations"
+      ]
+    },
+    {
+      "name": "The Mighty Room Transformation",
+      "summary": "Complete transformation of a larger room or multiple smaller spaces.",
+      "includes": [
+        "Consultation and assessment",
+        "ProClean Method implementation",
+        "Space planning",
+        "Organization systems",
+        "Labeling recommendations",
+        "Maintenance strategies"
+      ]
+    },
+    {
+      "name": "The Mighty Home Refresh",
+      "summary": "Multiple rooms or larger home organization projects.",
+      "includes": [
+        "Whole home organizational planning",
+        "Room by room organization",
+        "Decluttering and consolidation",
+        "Functional space design",
+        "Customized organizational systems"
+      ]
+    },
+    {
+      "name": "The Mighty Lifestyle Transformation",
+      "summary": "Comprehensive support for major life transitions.",
+      "includes": [
+        "Full project planning",
+        "Multiple organizing sessions",
+        "Downsizing assistance",
+        "Donation and disposal coordination",
+        "Ongoing support and follow up recommendations"
+      ]
+    },
+    {
+      "name": "The Mighty Move Package",
+      "summary": "For clients moving or settling into a new home.",
+      "includes": [
+        "Move preparation",
+        "Decluttering",
+        "Packing assistance",
+        "Unpacking services",
+        "Home setup and organization"
+      ]
+    },
+    {
+      "name": "The Mighty Senior Support Package",
+      "summary": "For seniors and families assisting loved ones through transitions.",
+      "includes": [
+        "Downsizing support",
+        "Space simplification",
+        "Safety focused organization",
+        "Donation coordination",
+        "Customized organizational systems"
+      ]
+    }
+  ],
+  "portfolioProjects": [
+    {
+      "title": "Bedroom Reset",
+      "location": "ProClean Project",
+      "scope": "Bed, floor zone, closet",
+      "before": "/uploads/bedroom-before.jpeg",
+      "after": "/uploads/bedroom-after.jpeg",
+      "notes": "Cleared the bed of bags and laundry, sorted and rehung the closet by category, and defined a clean floor line with a runner for daily walking room."
+    },
+    {
+      "title": "Dresser & Storage",
+      "location": "ProClean Project",
+      "scope": "Dresser, drawers, surface styling",
+      "before": "/uploads/dresser-before.jpeg",
+      "after": "/uploads/dresser-after.jpeg",
+      "notes": "Emptied and re-folded each drawer, consolidated stacked baskets into a considered display, and cleared the top surface so it reads as a finished vignette."
+    },
+    {
+      "title": "Home Office Corner",
+      "location": "ProClean Project",
+      "scope": "Desk, cables, shelf zone",
+      "before": "/uploads/office-before.jpeg",
+      "after": "/uploads/office-after.jpeg",
+      "notes": "Tamed cable clutter, cleared the desktop to essentials only, and turned the adjacent shelf into a working display of books, plants, and objects."
+    }
+  ],
+  "sustainabilityImage": "/uploads/sustainability.png"
+}

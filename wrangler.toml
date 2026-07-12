@@ -1,0 +1,31 @@
+name = "proclean-organizers"
+compatibility_date = "2024-09-23"
+
+# Build output directory for Cloudflare Pages
+pages_build_output_dir = ".output/public"
+
+# ---------------------------------------------------------------------------
+# KV namespace — stores all editable site content (text, prices, image URLs).
+# 1. Create in the Cloudflare dashboard: Workers & Pages → KV → Create namespace
+#    Name it anything (e.g. "proclean-site-content") — copy the ID it gives you.
+# 2. Paste the ID below.
+# 3. Seed the KV with the default content (one-time, run from project root):
+#    wrangler kv:key put --namespace-id=<YOUR_ID> "site-content" --path=data/site-content.seed.json
+# After that, every admin save in the live site overwrites this key automatically.
+# ---------------------------------------------------------------------------
+[[kv_namespaces]]
+binding = "SITE_CONTENT"
+id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
+# preview_id = "REPLACE_WITH_YOUR_KV_PREVIEW_NAMESPACE_ID"
+
+# ---------------------------------------------------------------------------
+# Secrets — do NOT put real values here. Set them via:
+#   wrangler secret put ADMIN_PASSWORD
+#   wrangler secret put SMTP_USER
+#   wrangler secret put SMTP_PASS
+# Or paste them in the Cloudflare dashboard:
+#   Workers & Pages → proclean-organizers → Settings → Environment Variables → Add secret
+# ---------------------------------------------------------------------------
+# ADMIN_PASSWORD  (the /admin login password)
+# SMTP_USER       (Gmail address for contact form delivery)
+# SMTP_PASS       (Gmail App Password — NOT your regular password)
