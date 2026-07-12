@@ -9,17 +9,16 @@ compatibility_flags = ["nodejs_compat"]
 
 # ---------------------------------------------------------------------------
 # KV namespace — stores all editable site content (text, prices, image URLs).
-# 1. Create in the Cloudflare dashboard: Workers & Pages → KV → Create namespace
-#    Name it anything (e.g. "proclean-site-content") — copy the ID it gives you.
-# 2. Paste the ID below.
-# 3. Seed the KV with the default content (one-time, run from project root):
-#    wrangler kv:key put --namespace-id=<YOUR_ID> "site-content" --path=data/site-content.seed.json
-# After that, every admin save in the live site overwrites this key automatically.
+# SETUP (do this once in Cloudflare dashboard, then uncomment the block below):
+# 1. Workers & Pages → KV → Create namespace → name it "proclean-site-content"
+# 2. Copy the namespace ID and paste it as the "id" value below
+# 3. Uncomment the [[kv_namespaces]] block
+# 4. Seed the KV: wrangler kv:key put --namespace-id=<YOUR_ID> "site-content" --path=data/site-content.seed.json
+# Until then, the site reads from data/site-content.seed.json (fully functional, admin saves won't persist).
 # ---------------------------------------------------------------------------
-[[kv_namespaces]]
-binding = "SITE_CONTENT"
-id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
-# preview_id = "REPLACE_WITH_YOUR_KV_PREVIEW_NAMESPACE_ID"
+# [[kv_namespaces]]
+# binding = "SITE_CONTENT"
+# id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
 
 # ---------------------------------------------------------------------------
 # Secrets — do NOT put real values here. Set them via:
