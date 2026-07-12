@@ -11,6 +11,7 @@
 
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import seedJson from "../../data/site-content.seed.json";
 
 const serviceSchema = z.object({
   name: z.string().trim().min(1).max(120),
@@ -85,7 +86,6 @@ export function withDerived(content: SiteContent) {
 
 export type DerivedSiteContent = ReturnType<typeof withDerived>;
 
-const SEED_PATH = "data/site-content.seed.json";
 const RUNTIME_PATH = "data/site-content.runtime.json";
 const KV_KEY = "site-content";
 
@@ -106,11 +106,25 @@ async function getKV(): Promise<{ get(k: string): Promise<string | null>; put(k:
   }
 }
 
-async function readSeedFromDisk(): Promise<unknown> {
-  const { readFile } = await import("node:fs/promises");
-  const { join } = await import("node:path");
-  const raw = await readFile(join(process.cwd(), SEED_PATH), "utf-8");
-  return JSON.parse(raw);
+// Bundled at build time — always available, even on Cloudflare Workers where
+// there is no filesystem to read data/site-content.seed.json from at runtime.
+const BUNDLED_SEED = seedJson as unknown;
+
+/** Reads data/site-content.runtime.json from disk. Only works in Node (local dev). */
+async function readRuntimeFromDisk(): Promise<unknown | null> {
+  try {
+    const { access, readFile } = await import("node:fs/promises");
+    const { join } = await import("node:path");
+    const { constants } = await import("node:fs");
+    const runtimeAbs = join(process.cwd(), RUNTIME_PATH);
+    const hasRuntime = await access(runtimeAbs, constants.F_OK).then(() => true, () => false);
+    if (!hasRuntime) return null;
+    const raw = await readFile(runtimeAbs, "utf-8");
+    return JSON.parse(raw);
+  } catch {
+    // No filesystem access (e.g. Cloudflare Workers) — caller falls back to bundled seed.
+    return null;
+  }
 }
 
 async function loadContent(): Promise<SiteContent> {
@@ -118,18 +132,14 @@ async function loadContent(): Promise<SiteContent> {
   if (kv) {
     const raw = await kv.get(KV_KEY);
     if (raw) return siteContentSchema.parse(JSON.parse(raw));
-    // KV is empty — fall back to seed file (first deploy before seeding)
-    return siteContentSchema.parse(await readSeedFromDisk());
+    // KV is empty (first deploy before seeding) — fall back to bundled seed.
+    return siteContentSchema.parse(BUNDLED_SEED);
   }
 
-  // Local Node dev: check for runtime file first, then seed
-  const { access, readFile } = await import("node:fs/promises");
-  const { join } = await import("node:path");
-  const { constants } = await import("node:fs");
-  const runtimeAbs = join(process.cwd(), RUNTIME_PATH);
-  const hasRuntime = await access(runtimeAbs, constants.F_OK).then(() => true, () => false);
-  const raw = await readFile(join(process.cwd(), hasRuntime ? RUNTIME_PATH : SEED_PATH), "utf-8");
-  return siteContentSchema.parse(JSON.parse(raw));
+  // No KV binding: local Node dev uses the on-disk runtime file if present,
+  // otherwise (including Cloudflare with no KV configured yet) use the bundled seed.
+  const runtime = await readRuntimeFromDisk();
+  return siteContentSchema.parse(runtime ?? BUNDLED_SEED);
 }
 
 async function saveContent(data: SiteContent): Promise<void> {
@@ -138,10 +148,15 @@ async function saveContent(data: SiteContent): Promise<void> {
     await kv.put(KV_KEY, JSON.stringify(data));
     return;
   }
-  // Local Node dev: write runtime file
-  const { writeFile } = await import("node:fs/promises");
-  const { join } = await import("node:path");
-  await writeFile(join(process.cwd(), RUNTIME_PATH), JSON.stringify(data, null, 2) + "\n", "utf-8");
+  // Local Node dev: write runtime file. On Cloudflare without KV, this is a
+  // no-op fs write that fails silently — admin saves won't persist until KV is wired up.
+  try {
+    const { writeFile } = await import("node:fs/promises");
+    const { join } = await import("node:path");
+    await writeFile(join(process.cwd(), RUNTIME_PATH), JSON.stringify(data, null, 2) + "\n", "utf-8");
+  } catch {
+    // No filesystem access — nothing we can do until SITE_CONTENT KV is bound.
+  }
 }
 
 // ---------------------------------------------------------------------------

@@ -26,10 +26,28 @@ if (!existsSync(serverDir)) {
 // Copy the entire server bundle into dist/client/_server/
 cpSync(serverDir, serverDest, { recursive: true });
 
-// Create _worker.js — Cloudflare Pages picks this up automatically
+// Create _worker.js — Cloudflare Pages picks this up automatically.
+// Static asset requests (JS/CSS/images) are delegated to Cloudflare's
+// built-in asset server (env.ASSETS) first; only unmatched requests
+// (page routes, API routes) fall through to the SSR handler. Without this,
+// a custom _worker.js disables Pages' automatic static file serving and
+// every asset request 404s/500s through the SSR handler instead.
 writeFileSync(
   join(clientDir, "_worker.js"),
-  `import worker from './_server/server.js';\nexport default worker;\n`,
+  `import worker from './_server/server.js';
+
+export default {
+  async fetch(request, env, ctx) {
+    if (env.ASSETS) {
+      const assetResponse = await env.ASSETS.fetch(request);
+      if (assetResponse.status !== 404) {
+        return assetResponse;
+      }
+    }
+    return worker.fetch(request, env, ctx);
+  },
+};
+`,
 );
 
 console.log("✓ Cloudflare Pages _worker.js written to dist/client/");
