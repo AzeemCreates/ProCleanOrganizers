@@ -69,7 +69,7 @@ export function HeroParallax() {
         aria-hidden
       >
         <img
-          src="/uploads/hero-closet.png"
+          src="/uploads/hero-closet.webp"
           alt=""
           className="h-full w-full object-cover"
           fetchPriority="high"

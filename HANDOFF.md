@@ -147,9 +147,11 @@ Live URL: https://procleanorganizers.pages.dev (custom domain not connected yet)
      ~0.35x + slow zoom-out, a lime accent bar ~0.65x, foreground text ~1.15x +
      fade-out), all applied via a single rAF-batched scroll handler and skipped
      under `prefers-reduced-motion`. Works on wheel/trackpad/touch (reads
-     `window.scrollY`). Background image is `public/uploads/hero-closet.png`,
+     `window.scrollY`). Background image is `public/uploads/hero-closet.webp`,
      generated with the **Higgsfield MCP** (`nano_banana_pro`, cozy timber
-     walk-in closet, brand-graded toward navy shadows / sage mid-tones).
+     walk-in closet, brand-graded toward navy shadows / sage mid-tones), then
+     converted from an 8.6 MB PNG to a 184 KB WebP (2400px wide, q80) via a
+     throwaway `sharp` install — the site's `package.json` has no image deps.
      Headline: "Organized Spaces. Restored Calm." with the lime accent on
      "Calm.", plus a free-consultation subhead, a lime CTA, and the phone.
      Service area is **NYC metro** — an earlier "Serving Mercer & surrounding
