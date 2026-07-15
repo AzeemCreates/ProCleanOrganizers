@@ -138,12 +138,89 @@ Live URL: https://procleanorganizers.pages.dev (custom domain not connected yet)
    changes needed since `src/components/site-header.tsx` already reads
    `images.logo` from site content, which already pointed at that path.
 
+9. **Homepage visual redesign (this session).** Reworked the homepage into a
+   more editorial, studio-portfolio feel while keeping all existing content and
+   the brand palette. New/changed files:
+
+   - **Parallax hero** (`src/components/hero-parallax.tsx`) replaced the flat
+     gradient hero. Full-screen, three scroll-driven layers (background photo
+     ~0.35x + slow zoom-out, a lime accent bar ~0.65x, foreground text ~1.15x +
+     fade-out), all applied via a single rAF-batched scroll handler and skipped
+     under `prefers-reduced-motion`. Works on wheel/trackpad/touch (reads
+     `window.scrollY`). Background image is `public/uploads/hero-closet.png`,
+     generated with the **Higgsfield MCP** (`nano_banana_pro`, cozy timber
+     walk-in closet, brand-graded toward navy shadows / sage mid-tones).
+     Headline: "Organized Spaces. Restored Calm." with the lime accent on
+     "Calm.", plus a free-consultation subhead, a lime CTA, and the phone.
+     Service area is **NYC metro** — an earlier "Serving Mercer & surrounding
+     counties" eyebrow was removed per the owner. Brand rule reinforced this
+     session: **no em/en dashes in visible copy** (use commas/periods).
+
+   - **Fixed minimal nav** (`src/components/site-header.tsx`): changed from
+     `sticky` to `fixed`, pinned to an exact `h-16` (64px) height. Three zones
+     via `grid-cols-[1fr_auto_1fr]`: logo + wordmark flush left, nav links
+     **truly centered** (the equal `1fr` side columns are what center the nav
+     regardless of the logo/phone widths — a plain `auto_1fr_auto` drifted the
+     nav off-center), phone-call CTA flush right. The Español/language toggle
+     was **removed from the header**.
+
+   - **Fixed-nav offset**: `src/components/site-shell.tsx`'s `<main>` got
+     `pt-16` so page content clears the fixed 64px nav; the homepage hero opts
+     out with its own `-mt-16` so it stays full-bleed under the translucent nav.
+
+   - **Footer** (`src/components/site-footer.tsx`): added the **Facebook** link
+     (https://m.facebook.com/procleanorganizers2020/) and the Español/English
+     language toggle (moved down from the header).
+
+   - **Reusable scroll-reveal** (`src/components/reveal.tsx`): `<Reveal index={i}>`
+     fades + rises its children into view via IntersectionObserver, staggered by
+     `index` with per-index variation (drift/tilt/scale/distance/origin) so a row
+     of cards feels like a varied "family" of entrances, and it **replays** when
+     an element scrolls out and back (the observer is intentionally never
+     disconnected; visibility follows `entry.isIntersecting`). Respects reduced
+     motion. Currently applied to the "Service Collections" cards and to every
+     row of the method timeline.
+
+   - **Interactive method timeline**: the 9-card "The ProClean Method" grid was
+     replaced by a single continuous vertical timeline
+     (`src/components/method-timeline.tsx`) sitting on a 3D-depth navy backdrop
+     (`src/components/method-backdrop.tsx`, a CSS perspective grid + layered
+     navy planes, motion gated behind reduced-motion). Each of the nine steps
+     reveals one-by-one via `Reveal`. Color application per the owner's brief:
+     navy (#3b547c) dominant background, sage (#6dbb9c) hairline + nodes +
+     subhead, lime (#b7cf46) as a sparing accent only. `methodSteps` is now
+     consumed inside `method-timeline.tsx`, not `index.tsx`.
+
+   - **Typography note**: the hero brief asked for a "bold condensed" display
+     face, but this repo intentionally ships **no external fonts** (Cloudflare
+     self-contained build + single brand font, Plus Jakarta Sans). The headline
+     uses Plus Jakarta at extra-bold / uppercase / tight-tracking to approximate
+     "condensed" without adding a font dependency. If a true condensed face is
+     ever wanted, self-host it as a bundled `.woff2` — do not link a font CDN.
+
+   - **Dev-server gotcha** (worth knowing next time): running several file edits
+     concurrently — especially via parallel subagents — repeatedly poisoned
+     Vite's HMR module cache, surfacing **stale** `ReferenceError`s in the
+     browser console (e.g. an old `lang` reference) for code that no longer
+     exists on disk. Don't trust those. The authoritative checks are
+     `bun run build` (must exit 0) and a fresh dev-server restart; verify the
+     real DOM with a JS probe rather than reading the stale console buffer.
+
+   - **Parallel-subagent workflow**: most of this redesign was executed by
+     dispatching several Sonnet subagents at once, each scoped to a single
+     disjoint file, tied together by a shared contract (nav = `h-16`, brand
+     classes, no dashes). Composition/integration into `index.tsx` was done by
+     the lead. This kept file-write conflicts at zero.
+
 ## Where things stand as of the last message in this conversation
 
 See `STATUS.md` for the live checklist. Short version: site is live and admin
-login works. KV binding (for persistent content edits) was just handed off to
-the user's browser agent as a set of dashboard-only steps — not yet confirmed
-done. Custom domain is explicitly on hold per the user's instruction.
+login works. The homepage was redesigned this session (item 9 above) and pushed
+to `main` (auto-deploys to Cloudflare Pages). Still pending: adding the owner's
+5 before/after photos to `/portfolio` (homepage is deliberately kept clean).
+KV binding (for persistent content edits) was handed off to the user's browser
+agent as dashboard-only steps — not yet confirmed done. Custom domain is
+explicitly on hold per the user's instruction.
 
 ## Tools used in this project (in case they're needed again)
 

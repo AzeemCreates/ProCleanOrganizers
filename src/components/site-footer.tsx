@@ -1,8 +1,15 @@
 import { Link } from "@tanstack/react-router";
+import { useState, useEffect } from "react";
+import { Facebook, Globe } from "lucide-react";
 import { useSiteContent } from "@/lib/site-content-context";
+import { getCurrentLang, toggleLanguage } from "@/lib/translate";
 
 export function SiteFooter() {
   const { business } = useSiteContent();
+  const [lang, setLang] = useState<"en" | "es">("en");
+  useEffect(() => {
+    setLang(getCurrentLang());
+  }, []);
   return (
     <footer className="border-t border-border bg-primary text-primary-foreground">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 md:grid-cols-[1fr_1.35fr_1fr] md:px-6">
@@ -29,6 +36,16 @@ export function SiteFooter() {
             </li>
           </ul>
           <p className="mt-4 text-sm opacity-80">{business.serviceAreaSummary}</p>
+          <a
+            href="https://m.facebook.com/procleanorganizers2020/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="ProClean Organizers on Facebook"
+            className="mt-4 inline-flex items-center gap-2 text-sm hover:underline"
+          >
+            <Facebook className="h-4 w-4" />
+            Facebook
+          </a>
         </div>
 
         <div>
@@ -51,6 +68,16 @@ export function SiteFooter() {
           <Link to="/admin" className="hover:underline">
             Admin
           </Link>
+          <span aria-hidden>&middot;</span>
+          <button
+            type="button"
+            onClick={() => toggleLanguage()}
+            className="inline-flex items-center gap-1.5 hover:underline"
+            aria-label={lang === "en" ? "Translate to Spanish" : "Translate to English"}
+          >
+            <Globe className="h-3.5 w-3.5" aria-hidden />
+            {lang === "en" ? "Español" : "English"}
+          </button>
         </p>
       </div>
     </footer>

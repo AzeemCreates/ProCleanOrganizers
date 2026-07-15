@@ -1,5 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteShell } from "@/components/site-shell";
+import { HeroParallax } from "@/components/hero-parallax";
+import { Reveal } from "@/components/reveal";
+import { MethodTimeline } from "@/components/method-timeline";
+import { MethodBackdrop } from "@/components/method-backdrop";
 import { useSiteContent } from "@/lib/site-content-context";
 import {
   ArrowRight,
@@ -57,43 +61,13 @@ const FEATURES = [
 ];
 
 function HomePage() {
-  const { business, methodSteps, serviceCategories, sustainabilityImage } = useSiteContent();
+  const { business, serviceCategories, sustainabilityImage } = useSiteContent();
   const topCategories = serviceCategories.slice(0, 3);
 
   return (
     <SiteShell>
-      {/* ============ HERO ============ */}
-      <section className="bg-gradient-to-br from-primary to-brand-deep-teal text-primary-foreground">
-        <div className="mx-auto max-w-6xl px-4 py-16 text-center md:px-6 md:py-24">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-lime">
-            Est. 2020 · NYC Metro
-          </p>
-          <h1 className="mx-auto mt-6 max-w-3xl text-4xl font-bold leading-tight tracking-tight md:text-6xl">
-            Professional Organizing
-            <br />
-            <span className="text-brand-lime">Tidy is Mighty.</span>
-          </h1>
-          <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-primary-foreground/80 md:text-lg">
-            Calm, judgment free organizing that transforms cluttered spaces into clean,
-            functional environments giving you back time, focus, and peace of mind.
-          </p>
-          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Link
-              to="/contact"
-              className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-md bg-brand-lime px-6 text-sm font-bold uppercase tracking-wide text-primary shadow-lg shadow-black/20 transition-colors hover:bg-brand-lime/90 sm:w-auto"
-            >
-              Free Consultation
-              <ArrowRight className="h-4 w-4" aria-hidden />
-            </Link>
-            <Link
-              to="/services"
-              className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-md border border-primary-foreground/40 bg-transparent px-6 text-sm font-semibold uppercase tracking-wide text-primary-foreground transition-colors hover:border-primary-foreground hover:bg-primary-foreground/10 sm:w-auto"
-            >
-              Explore Services
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* ============ HERO (scroll parallax) ============ */}
+      <HeroParallax />
 
       {/* ============ TRUST BAND (green) ============ */}
       <section className="bg-primary text-primary-foreground">
@@ -130,10 +104,10 @@ function HomePage() {
           </div>
 
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {topCategories.map((cat) => (
+            {topCategories.map((cat, i) => (
+              <Reveal key={cat.category} index={i} className="h-full">
               <article
-                key={cat.category}
-                className="group flex flex-col overflow-hidden rounded-lg border border-border bg-card"
+                className="group flex h-full flex-col overflow-hidden rounded-lg border border-border bg-card"
               >
                 <div className="relative aspect-[4/3] w-full overflow-hidden bg-muted">
                   <img
@@ -167,6 +141,7 @@ function HomePage() {
                   </Link>
                 </div>
               </article>
+              </Reveal>
             ))}
           </div>
 
@@ -228,37 +203,10 @@ function HomePage() {
         </div>
       </section>
 
-      {/* ============ THE METHOD ============ */}
-      <section className="bg-background">
-        <div className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24">
-          <div className="max-w-2xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-teal-text">
-              The ProClean Method
-            </p>
-            <h2 className="mt-4 text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-              A nine-step approach to lasting order
-            </h2>
-            <p className="mt-4 text-muted-foreground">
-              Every project follows the same disciplined sequence. Cleanliness is the
-              foundation; organization is built on top.
-            </p>
-          </div>
-
-          <ol className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {methodSteps.map((step, i) => (
-              <li
-                key={step.name}
-                className="rounded-lg border border-border bg-card p-6 transition-colors hover:border-brand-teal"
-              >
-                <span className="text-xs font-semibold tracking-widest text-brand-teal-text">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <h3 className="mt-3 text-lg font-bold text-foreground">{step.name}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{step.description}</p>
-              </li>
-            ))}
-          </ol>
-        </div>
+      {/* ============ THE METHOD (interactive timeline on 3D navy) ============ */}
+      <section className="relative overflow-hidden bg-primary text-primary-foreground">
+        <MethodBackdrop />
+        <MethodTimeline />
       </section>
 
       {/* ============ SUSTAINABILITY / VALUES (green with image feel) ============ */}

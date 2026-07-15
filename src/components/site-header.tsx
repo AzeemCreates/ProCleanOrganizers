@@ -1,8 +1,7 @@
 import { Link } from "@tanstack/react-router";
-import { useState, useEffect } from "react";
-import { Menu, X, Phone, Globe } from "lucide-react";
+import { useState } from "react";
+import { Menu, X, Phone } from "lucide-react";
 import { useSiteContent } from "@/lib/site-content-context";
-import { getCurrentLang, toggleLanguage } from "@/lib/translate";
 
 const NAV = [
   { to: "/", label: "Home" },
@@ -16,11 +15,6 @@ const NAV = [
 export function SiteHeader() {
   const { business, images } = useSiteContent();
   const [open, setOpen] = useState(false);
-  const [lang, setLang] = useState<"en" | "es">("en");
-
-  useEffect(() => {
-    setLang(getCurrentLang());
-  }, []);
 
   const LogoLink = () => (
     <Link
@@ -31,7 +25,7 @@ export function SiteHeader() {
       <img
         src={images.logo}
         alt=""
-        className="h-14 w-14 shrink-0 object-contain md:h-16 md:w-16"
+        className="h-10 w-10 shrink-0 object-contain md:h-11 md:w-11"
         width={64}
         height={64}
       />
@@ -42,7 +36,7 @@ export function SiteHeader() {
   );
 
   const DesktopNav = () => (
-    <nav className="flex items-center gap-1" aria-label="Primary">
+    <nav className="flex items-center justify-center gap-1" aria-label="Primary">
       {NAV.slice(1).map((item) => (
         <Link
           key={item.to}
@@ -57,44 +51,36 @@ export function SiteHeader() {
   );
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
-      <div className="mx-auto grid max-w-6xl grid-cols-[auto_1fr_auto] items-center gap-2 px-4 py-3 md:grid-cols-[1fr_auto] md:px-6">
-        {/* Mobile: hamburger */}
-        <div className="flex items-center gap-1 md:hidden">
+    <header className="fixed top-0 inset-x-0 z-50 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
+      <div className="mx-auto grid h-16 max-w-6xl grid-cols-[1fr_auto_1fr] items-center px-4 md:px-6">
+        {/* Cell 1: mobile hamburger / desktop logo */}
+        <div className="flex items-center justify-self-start">
           <button
             type="button"
             onClick={() => setOpen((o) => !o)}
             aria-label="Toggle navigation menu"
             aria-expanded={open}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-md text-foreground hover:bg-muted"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-md text-foreground hover:bg-muted md:hidden"
           >
             {open ? <X className="h-5 w-5" /> : <Menu className="h-6 w-6" />}
           </button>
+          <div className="hidden md:flex">
+            <LogoLink />
+          </div>
         </div>
 
-        {/* Desktop: leftmost logo + nav */}
-        <div className="hidden items-center gap-4 md:flex">
-          <LogoLink />
-          <DesktopNav />
+        {/* Cell 2: mobile centered logo / desktop centered nav */}
+        <div className="flex items-center justify-self-center">
+          <div className="flex md:hidden">
+            <LogoLink />
+          </div>
+          <div className="hidden md:flex">
+            <DesktopNav />
+          </div>
         </div>
 
-        {/* Mobile: centered logo */}
-        <div className="flex items-center justify-center md:hidden">
-          <LogoLink />
-        </div>
-
-        {/* Right: language toggle + contact CTA */}
-        <div className="flex items-center justify-end gap-2">
-          <button
-            type="button"
-            onClick={() => toggleLanguage()}
-            className="inline-flex h-10 items-center justify-center gap-1.5 rounded-md border border-border bg-background px-3 text-sm font-semibold uppercase tracking-wide text-foreground hover:border-primary hover:text-primary md:px-4"
-            aria-label={lang === "en" ? "Translate to Spanish" : "Translate to English"}
-          >
-            <Globe className="h-4 w-4" aria-hidden />
-            <span className="hidden sm:inline">{lang === "en" ? "Español" : "English"}</span>
-            <span className="sm:hidden">{lang === "en" ? "ES" : "EN"}</span>
-          </button>
+        {/* Cell 3: contact CTA */}
+        <div className="flex items-center justify-self-end gap-2">
           <a
             href={business.phoneHref}
             aria-label={`Call ${business.phone}`}
@@ -123,17 +109,6 @@ export function SiteHeader() {
                 </Link>
               </li>
             ))}
-            <li className="border-t border-border pt-2">
-              <button
-                type="button"
-                onClick={() => toggleLanguage()}
-                className="flex w-full items-center gap-2 rounded px-2 py-3 text-base uppercase tracking-wide text-foreground hover:text-primary"
-                aria-label={lang === "en" ? "Translate to Spanish" : "Translate to English"}
-              >
-                <Globe className="h-5 w-5" aria-hidden />
-                {lang === "en" ? "Español" : "English"}
-              </button>
-            </li>
           </ul>
         </nav>
       )}

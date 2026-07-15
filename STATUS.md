@@ -7,7 +7,8 @@ Last updated: 2026-07-15
 | Thing | State |
 |---|---|
 | Site | Live at https://procleanorganizers.pages.dev |
-| Homepage / all pages | Working (verified: content, images, nav) |
+| Homepage | **Redesigned this session** — parallax hero, fixed minimal nav, scroll-reveal cards, interactive nine-step method timeline on a 3D navy backdrop (see HANDOFF item 9) |
+| Other pages (about/services/pricing/portfolio/contact) | Working (verified: content, images, nav) |
 | `/admin` login | Working — password is in local `.env` (gitignored) and set as a Cloudflare Pages secret |
 | Contact form | Renders; SMTP **not configured**, submissions only console-log |
 | Content storage | Bundled seed JSON (`data/site-content.seed.json`) — **not KV yet** |
@@ -17,7 +18,13 @@ Last updated: 2026-07-15
 
 ## What's NOT done yet (in priority order)
 
-1. **Bind KV namespace** (`SITE_CONTENT`) so admin edits persist across redeploys.
+1. **Add before/after photos to `/portfolio`.** Owner provided 5 real project
+   photos (raw-clutter "before" shots + a labeled-bin "after"). Decision made
+   this session: these go on `/portfolio` ONLY — the homepage is deliberately
+   kept clean (no before/afters competing with the hero + method timeline).
+   The photos have NOT been added yet. Owner also said not to label
+   before/after pairings yet.
+2. **Bind KV namespace** (`SITE_CONTENT`) so admin edits persist across redeploys.
    Handed to browser agent — steps are in `wrangler.toml` under the KV comment block.
    Not yet confirmed done as of this writing.
 2. **Connect custom domain** (`procleanorganizers.com`) to the Pages project.
