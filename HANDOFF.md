@@ -214,15 +214,90 @@ Live URL: https://procleanorganizers.pages.dev (custom domain not connected yet)
      classes, no dashes). Composition/integration into `index.tsx` was done by
      the lead. This kept file-write conflicts at zero.
 
+10. **Copy sweep, Services methodology section, proof carousel (this session).**
+    Several small requests landed in one session; noting them together since
+    they touch the same files.
+
+    - **"NYC metro" → "NYC & NJ"** swept across all route meta descriptions and
+      the homepage trust-band heading (`index.tsx`, `about.tsx`, `contact.tsx`,
+      `portfolio.tsx`, `services.tsx`, `__root.tsx`).
+    - **Homepage trust band** gained a 5th tile, through two revisions: first
+      "Mercer County, NJ", then corrected to **"Mercer & surrounding counties"**
+      per the owner (the business's 609 phone number is a Mercer County, NJ area
+      code, so this is accurate, not filler).
+    - **Services page** (`services.tsx`) got a new standalone methodology
+      section between the hero and the catalog accordion: "Why we clean before
+      we organize," two phase cards (Clean First — sage card, 7 steps; Organize
+      Second — navy card, 6 steps) linked by an arrow connector, a pull quote
+      ("Clean first. Organize second. That's the standard."), and a 3/6/9-month
+      follow-up trust card. Built in **Plus Jakarta Sans** (the site's real
+      font) at heavy/uppercase weights, NOT Times New Roman — a since-corrected
+      instruction asked for Times New Roman, but this repo has no serif font and
+      a hard "no italics" brand rule; changing the whole site to serif would be
+      a separate, larger decision that hasn't been requested.
+    - **Proof carousel** (`src/components/proof-carousel.tsx`), added to
+      `/portfolio` between the stat band and "Selected Transformations."
+      Reuses the existing Embla primitive at `src/components/ui/carousel.tsx`
+      (no new carousel library). Navy band, "Trust the **results**" headline
+      (lime word) as the static first item in the track, 8 real ProClean spaces
+      as 4:3 rounded photo cards with a chrome dot-bar, circular arrow button
+      pinned to the right edge (verified via DOM probe to advance the track by
+      one card per click), native drag/swipe. Source photos:
+      `image.jpg`–`image9.jpg` in the owner's
+      `C:\2026- Property MgMT Portal\ProClean Organizers Images\` folder,
+      cropped to a consistent 1200×900 webp (`sharp`, `fit: cover, attention`
+      auto-framing) into `public/uploads/proof/proof-01..08.webp`. One card
+      (`proof-03`) is a **stock 3D-rendered closet** the owner explicitly asked
+      to include (`IMG_2291.jpg`) — flagged to the owner as needing a confirmed
+      license before this goes live, not yet resolved. The stat band's
+      "Projects shown" value was changed from the literal count (`3`) to the
+      word **"Multiple"**.
+    - **Image-intake gotcha learned twice this session**: images pasted directly
+      into chat are NOT files — they can't be committed. Only files the owner
+      actually saves to disk (in the Images folder, or wherever) can be copied
+      into the repo. Dragging an image *link* (e.g. from Discord) instead of the
+      file itself creates a `.url` shortcut, not an image — these were found and
+      skipped, not silently treated as real images.
+    - **Stock vs. real photo judgment call**: the owner pasted a batch of images
+      mid-session that included two watermarked ("The White Laurel") blog photos
+      and several stock/AI-looking interiors (cleaning gloves, Scandinavian
+      living rooms, generic "Keep/Donate/Trash/Relocate" boxes). These were
+      flagged and NOT added as portfolio "proof," since the portfolio page's own
+      copy promises "no staging, no props, just the same rooms our clients live
+      in" — presenting stock photos as client proof would contradict that and
+      risks copyright issues on the watermarked ones. The owner agreed to use
+      stock/illustrative images "only where they're honest" (e.g. decorative,
+      not labeled as real jobs) — no such usage has been built yet.
+    - **`git rm` + throwaway `sharp`**: the hero PNG→WebP conversion pattern from
+      item 9 was reused verbatim for the proof photos — install `sharp` in a
+      scratch temp dir (never the site's `package.json`), process, copy output
+      into `public/uploads/`, done.
+
 ## Where things stand as of the last message in this conversation
 
-See `STATUS.md` for the live checklist. Short version: site is live and admin
-login works. The homepage was redesigned this session (item 9 above) and pushed
-to `main` (auto-deploys to Cloudflare Pages). Still pending: adding the owner's
-5 before/after photos to `/portfolio` (homepage is deliberately kept clean).
-KV binding (for persistent content edits) was handed off to the user's browser
-agent as dashboard-only steps — not yet confirmed done. Custom domain is
-explicitly on hold per the user's instruction.
+See `STATUS.md` for the live checklist. Two commits exist locally that are
+**NOT pushed yet** — the owner explicitly said not to push until told:
+
+- `d12c191` — Services methodology section, NYC & NJ + Mercer copy sweep,
+  2 staged images in `public/newaddImages-2026clean/` (this one WAS already
+  pushed and deployed; see below).
+- `293b063` — proof carousel + 8 cropped proof images + "Multiple" stat label.
+  **Local only, not pushed, not deployed.**
+
+To avoid confusion: `d12c191` (Services methodology + NYC & NJ + Mercer tile)
+**was** pushed and verified live earlier in the session. The proof carousel
+commit (`293b063`, plus this stat-label tweak) came after the owner said
+"don't push once you are done" — so **run `git log origin/main --oneline -1`
+first** to see exactly what's actually live before assuming anything in this
+doc is deployed. Do not push `293b063` (or anything after it) without asking
+the owner first.
+
+Also still pending: the licensing question on `proof-03` (stock 3D render),
+and a decision on whether the proof carousel should lead with all 8 images
+(mixed before/after) or trim to results-only — both flagged to the owner,
+unanswered as of this writing. KV binding (for persistent content edits) was
+handed off to the user's browser agent as dashboard-only steps — not yet
+confirmed done. Custom domain is explicitly on hold per the user's instruction.
 
 ## Tools used in this project (in case they're needed again)
 

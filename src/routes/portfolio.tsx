@@ -50,7 +50,7 @@ function PortfolioPage() {
         <div className="mx-auto max-w-6xl px-4 py-10 md:px-6 md:py-14">
           <ul className="grid grid-cols-2 gap-6 text-center text-sm md:grid-cols-3">
             {[
-              { k: "Projects shown", v: `${PROJECTS.length}` },
+              { k: "Projects shown", v: "Multiple" },
               { k: "Method steps", v: "9" },
               { k: "Rooms transformed", v: "All Types" },
             ].map((s) => (
