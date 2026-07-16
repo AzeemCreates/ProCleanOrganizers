@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteShell } from "@/components/site-shell";
+import { ProofCarousel } from "@/components/proof-carousel";
 import { ArrowRight } from "lucide-react";
 import { useSiteContent } from "@/lib/site-content-context";
 
@@ -63,6 +64,9 @@ function PortfolioPage() {
           </ul>
         </div>
       </section>
+
+      {/* PROOF CAROUSEL */}
+      <ProofCarousel />
 
       {/* PROJECTS */}
       <section className="bg-background">
