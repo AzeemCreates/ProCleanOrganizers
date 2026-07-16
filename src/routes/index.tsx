@@ -69,10 +69,10 @@ function HomePage() {
       {/* ============ HERO (scroll parallax) ============ */}
       <HeroParallax />
 
-      {/* ============ TRUST BAND (green) ============ */}
-      <section className="bg-primary text-primary-foreground">
+      {/* ============ TRUST BAND (soft mint teal) ============ */}
+      <section className="bg-brand-mint text-primary">
         <div className="mx-auto max-w-6xl px-4 py-10 md:px-6 md:py-14">
-          <p className="text-center text-sm font-semibold uppercase tracking-[0.2em] opacity-80">
+          <p className="text-center text-sm font-semibold uppercase tracking-[0.2em] text-primary/75">
             Trusted across the NYC metro area
           </p>
           <ul className="mt-8 grid grid-cols-2 gap-6 text-center text-sm md:grid-cols-4">
@@ -82,7 +82,7 @@ function HomePage() {
               "Brooklyn & Bronx",
               "Westchester & LI",
             ].map((area) => (
-              <li key={area} className="border-t border-brand-lime/50 pt-4 font-semibold">
+              <li key={area} className="border-t border-primary/25 pt-4 font-semibold text-primary">
                 {area}
               </li>
             ))}
@@ -157,19 +157,19 @@ function HomePage() {
         </div>
       </section>
 
-      {/* ============ WHY PROCLEAN (deep teal-navy gradient with accordion) ============ */}
-      <section className="bg-gradient-to-br from-primary to-brand-deep-teal text-primary-foreground">
+      {/* ============ WHY PROCLEAN (soft mint teal with accordion) ============ */}
+      <section className="border-t border-primary/10 bg-brand-mint text-primary">
         <div className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24">
           <div className="max-w-2xl">
             <h2 className="text-3xl font-bold tracking-tight md:text-4xl">Why ProClean?</h2>
-            <p className="mt-4 text-primary-foreground/80">
+            <p className="mt-4 text-foreground/80">
               As ProClean Organizers, we turn cluttered rooms into calm, functional spaces
               through a disciplined, judgment free method. Every home gets the same standard
               of care we would want in our own.
             </p>
           </div>
 
-          <ul className="mt-10 divide-y divide-primary-foreground/20 border-y border-primary-foreground/20">
+          <ul className="mt-10 divide-y divide-primary/15 border-y border-primary/20">
             {FEATURES.map((f) => {
               const Icon = f.icon;
               return (
@@ -180,9 +180,9 @@ function HomePage() {
                         <ChevronDown className="h-5 w-5 shrink-0 transition-transform group-open:rotate-180" aria-hidden />
                         <span className="text-base font-semibold md:text-lg">{f.title}</span>
                       </div>
-                      <Icon className="h-6 w-6 shrink-0 text-brand-lime" aria-hidden />
+                      <Icon className="h-6 w-6 shrink-0 text-primary" aria-hidden />
                     </summary>
-                    <p className="pb-6 pl-8 pr-2 text-sm leading-relaxed text-primary-foreground/85">
+                    <p className="pb-6 pl-8 pr-2 text-sm leading-relaxed text-foreground/85">
                       {f.body}
                     </p>
                   </details>
@@ -194,7 +194,7 @@ function HomePage() {
           <div className="mt-10">
             <a
               href={business.phoneHref}
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-md bg-brand-lime px-6 text-sm font-bold uppercase tracking-wide text-primary shadow-lg shadow-black/20 transition-colors hover:bg-brand-lime/90"
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-md bg-brand-lime px-6 text-sm font-bold uppercase tracking-wide text-primary shadow-lg shadow-primary/15 transition-colors hover:bg-brand-lime/90"
             >
               <Phone className="h-4 w-4" aria-hidden />
               Call Now
@@ -203,16 +203,16 @@ function HomePage() {
         </div>
       </section>
 
-      {/* ============ THE METHOD (interactive timeline on 3D navy) ============ */}
-      <section className="relative overflow-hidden bg-primary text-primary-foreground">
+      {/* ============ THE METHOD (interactive timeline on mint 3D grid) ============ */}
+      <section className="relative overflow-hidden border-t border-primary/10 bg-brand-mint text-primary">
         <MethodBackdrop />
         <MethodTimeline />
       </section>
 
-      {/* ============ SUSTAINABILITY / VALUES (green with image feel) ============ */}
-      <section className="bg-primary text-primary-foreground">
+      {/* ============ SUSTAINABILITY / VALUES (soft mint teal with image feel) ============ */}
+      <section className="border-t border-primary/10 bg-brand-mint text-primary">
         <div className="mx-auto grid max-w-6xl gap-10 px-4 py-16 md:grid-cols-2 md:items-center md:px-6 md:py-24">
-          <div className="aspect-[4/3] w-full overflow-hidden rounded-lg bg-primary-foreground/5">
+          <div className="aspect-[4/3] w-full overflow-hidden rounded-lg bg-primary/5">
             <img
               src={sustainabilityImage}
               alt=""
@@ -224,14 +224,14 @@ function HomePage() {
             <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
               Responsible, thoughtful organizing
             </h2>
-            <p className="mt-4 text-primary-foreground/85">
+            <p className="mt-4 text-foreground/85">
               We prioritize donation, recycling, and resale when decluttering, and we build
               systems designed to reduce waste over time. Fewer duplicates. Less landfill.
               Spaces that stay usable for years.
             </p>
             <Link
               to="/about"
-              className="mt-6 inline-flex items-center gap-2 border-b border-primary-foreground pb-1 text-sm font-semibold uppercase tracking-wide hover:opacity-80"
+              className="mt-6 inline-flex items-center gap-2 border-b border-primary pb-1 text-sm font-semibold uppercase tracking-wide hover:opacity-80"
             >
               Learn more about our approach
               <ArrowRight className="h-4 w-4" aria-hidden />
