@@ -154,7 +154,7 @@ Live URL: https://procleanorganizers.pages.dev (custom domain not connected yet)
      throwaway `sharp` install — the site's `package.json` has no image deps.
      Headline: "Organized Spaces. Restored Calm." with the lime accent on
      "Calm.", plus a free-consultation subhead, a lime CTA, and the phone.
-     Service area is **NYC metro** — an earlier "Serving Mercer & surrounding
+     Service area is **NYC & NJ** — an earlier "Serving Mercer & surrounding
      counties" eyebrow was removed per the owner. Brand rule reinforced this
      session: **no em/en dashes in visible copy** (use commas/periods).
 

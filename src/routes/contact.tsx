@@ -11,7 +11,7 @@ export const Route = createFileRoute("/contact")({
       {
         name: "description",
         content:
-          "Reach ProClean Organizers by phone, email, or form. Free consultations across the NYC metro area.",
+          "Reach ProClean Organizers by phone, email, or form. Free consultations across NYC & NJ.",
       },
       { property: "og:title", content: "Contact - ProClean Organizers" },
       {

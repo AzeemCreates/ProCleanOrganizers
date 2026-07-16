@@ -76,7 +76,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 }
 
 const SITE_DESC =
-  "Professional organizing, space design, and time management in NYC and the surrounding metro area. Schedule a free consultation with ProClean Organizers.";
+  "Professional organizing, space design, and time management in NYC & NJ. Schedule a free consultation with ProClean Organizers.";
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: ({ loaderData }) => {

@@ -28,7 +28,7 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "ProClean Organizers - Tidy is Mighty" },
       {
         property: "og:description",
-        content: "Calm, capable organizing for homes and small businesses across the NYC metro area.",
+        content: "Calm, capable organizing for homes and small businesses across NYC & NJ.",
       },
       { property: "og:url", content: "/" },
     ],
@@ -56,7 +56,7 @@ const FEATURES = [
   {
     icon: Briefcase,
     title: "Homes and small businesses",
-    body: "From closets and kitchens to offices and stockrooms, our method scales. Serving the NYC metro area with virtual and in-person consultations.",
+    body: "From closets and kitchens to offices and stockrooms, our method scales. Serving NYC & NJ with virtual and in-person consultations.",
   },
 ];
 
@@ -73,14 +73,15 @@ function HomePage() {
       <section className="bg-primary text-primary-foreground">
         <div className="mx-auto max-w-6xl px-4 py-10 md:px-6 md:py-14">
           <p className="text-center text-sm font-semibold uppercase tracking-[0.2em] opacity-80">
-            Trusted across the NYC metro area
+            Trusted across NYC & NJ
           </p>
-          <ul className="mt-8 grid grid-cols-2 gap-6 text-center text-sm md:grid-cols-4">
+          <ul className="mt-8 grid grid-cols-2 gap-6 text-center text-sm md:grid-cols-5">
             {[
               "Manhattan",
               "Queens",
               "Brooklyn & Bronx",
               "Westchester & LI",
+              "Mercer & surrounding counties",
             ].map((area) => (
               <li key={area} className="border-t border-brand-lime/50 pt-4 font-semibold">
                 {area}

@@ -10,7 +10,7 @@ export const Route = createFileRoute("/portfolio")({
       {
         name: "description",
         content:
-          "Before and after transformations from ProClean Organizers. Real spaces across the NYC metro area, organized with our nine-step method.",
+          "Before and after transformations from ProClean Organizers. Real spaces across NYC & NJ, organized with our nine-step method.",
       },
       { property: "og:title", content: "Portfolio - Proof of Work | ProClean Organizers" },
       {
@@ -38,7 +38,7 @@ function PortfolioPage() {
             Proof of <span className="text-primary">Work.</span>
           </h1>
           <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
-            Real spaces across the NYC metro area, before and after the ProClean method.
+            Real spaces across NYC & NJ, before and after the ProClean method.
             No staging, no props, just the same rooms our clients live in every day.
           </p>
         </div>

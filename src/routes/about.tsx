@@ -10,7 +10,7 @@ export const Route = createFileRoute("/about")({
       {
         name: "description",
         content:
-          "Meet Mujahid Ibn Abdellah, owner of ProClean Organizers. IAP Career College certified professional organizer serving the NYC metro area since 2020.",
+          "Meet Mujahid Ibn Abdellah, owner of ProClean Organizers. IAP Career College certified professional organizer serving NYC & NJ since 2020.",
       },
       { property: "og:title", content: "About - ProClean Organizers" },
       {
