@@ -42,14 +42,8 @@ export function ProofCarousel() {
             {/* Static first item: headline the cards scroll past */}
             <CarouselItem className="basis-[85%] pl-5 sm:basis-3/5 lg:basis-1/3">
               <div className="flex h-full min-h-64 flex-col justify-center pr-2">
-                <p className="text-xs font-bold uppercase tracking-[0.25em] text-brand-teal">
-                  Proof of work
-                </p>
-                <h2 className="mt-4 text-4xl font-extrabold uppercase leading-[0.95] tracking-tight md:text-5xl">
-                  Trust the <span className="text-brand-lime">results</span>
-                </h2>
-                <p className="mt-5 max-w-xs text-sm leading-relaxed text-primary-foreground/70">
-                  Real spaces across NYC and NJ, transformed with the ProClean method.
+                <p className="max-w-xs text-2xl font-bold leading-snug text-primary-foreground md:text-3xl">
+                  Spaces across NYC and NJ, transformed with the ProClean method.
                   Drag or use the arrow to move through the work.
                 </p>
               </div>
