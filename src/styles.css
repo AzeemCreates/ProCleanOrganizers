@@ -67,8 +67,6 @@
   --color-brand-lime-soft: var(--brand-lime-soft);
   --color-brand-teal-text: var(--brand-teal-text);
   --color-brand-deep-teal: var(--brand-deep-teal);
-  /* Soft mint teal, exact hex, used as the homepage section background. */
-  --color-brand-mint: #6EC6A9;
 }
 
 :root {

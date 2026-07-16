@@ -3,15 +3,14 @@ import { useEffect, useRef } from "react";
 /**
  * MethodBackdrop
  *
- * Purely decorative background layer for the soft mint teal section. Kept
- * near-transparent so the section's exact mint reads through, with a navy
- * perspective grid ("floor" plane) receding toward a vanishing point, plus a
- * soft center vignette/glow, to give the section a subtle sense of 3D depth.
- * Built entirely with CSS gradients/transforms, no external libraries, no
- * canvas.
+ * Purely decorative background layer for a navy section. Renders a
+ * perspective grid ("floor" plane) receding toward a vanishing point,
+ * plus a soft center vignette/glow, to give the section a subtle sense
+ * of 3D depth. Built entirely with CSS gradients/transforms — no
+ * external libraries, no canvas.
  *
  * Usage:
- *   <section className="relative overflow-hidden bg-brand-mint">
+ *   <section className="relative overflow-hidden bg-primary">
  *     <MethodBackdrop />
  *     <div className="relative z-10">...real content...</div>
  *   </section>
@@ -64,14 +63,13 @@ export function MethodBackdrop() {
       className="pointer-events-none absolute inset-0 overflow-hidden"
       aria-hidden="true"
     >
-      {/* Base tonal wash: kept near-transparent so the section's exact mint
-          (#6EC6A9) reads through, with a faint lighter center and a whisper of
-          navy pooling at the edges to give the grid something to sit on. */}
+      {/* Base tonal wash: darker navy pooling at the edges, deeper navy
+          radiating from the center, so the grid has something to sit on. */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(120% 90% at 50% 38%, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.04) 45%, rgba(59,84,124,0.06) 100%)",
+            "radial-gradient(120% 90% at 50% 38%, #22334d 0%, #2c4160 45%, #1a2740 100%)",
         }}
       />
 
@@ -89,7 +87,7 @@ export function MethodBackdrop() {
             transform:
               "translateX(-50%) translateY(var(--drift, 0px)) rotateX(72deg)",
             backgroundImage:
-              "repeating-linear-gradient(0deg, rgba(59,84,124,0.16) 0px, rgba(59,84,124,0.16) 1px, transparent 1px, transparent 64px), repeating-linear-gradient(90deg, rgba(59,84,124,0.16) 0px, rgba(59,84,124,0.16) 1px, transparent 1px, transparent 64px)",
+              "repeating-linear-gradient(0deg, rgba(109,187,156,0.16) 0px, rgba(109,187,156,0.16) 1px, transparent 1px, transparent 64px), repeating-linear-gradient(90deg, rgba(109,187,156,0.16) 0px, rgba(109,187,156,0.16) 1px, transparent 1px, transparent 64px)",
             maskImage:
               "linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.5) 45%, rgba(0,0,0,0) 85%)",
             WebkitMaskImage:
@@ -102,7 +100,7 @@ export function MethodBackdrop() {
             bottom: "-15%",
             transform: "translateX(-50%) rotateX(72deg)",
             backgroundImage:
-              "repeating-linear-gradient(0deg, rgba(59,84,124,0.12) 0px, rgba(59,84,124,0.12) 1px, transparent 1px, transparent 320px), repeating-linear-gradient(90deg, rgba(59,84,124,0.12) 0px, rgba(59,84,124,0.12) 1px, transparent 1px, transparent 320px)",
+              "repeating-linear-gradient(0deg, rgba(34,51,77,0.5) 0px, rgba(34,51,77,0.5) 1px, transparent 1px, transparent 320px), repeating-linear-gradient(90deg, rgba(34,51,77,0.5) 0px, rgba(34,51,77,0.5) 1px, transparent 1px, transparent 320px)",
             maskImage:
               "linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0) 88%)",
             WebkitMaskImage:
@@ -115,29 +113,29 @@ export function MethodBackdrop() {
           different scales/offsets, to suggest depth without a canvas. */}
       <div
         className="absolute -left-24 -top-20 h-72 w-72 rounded-full blur-3xl"
-        style={{ backgroundColor: "rgba(255,255,255,0.30)" }}
+        style={{ backgroundColor: "rgba(26,39,64,0.55)" }}
       />
       <div
         className="absolute -right-32 top-1/3 h-96 w-96 rounded-full blur-3xl"
-        style={{ backgroundColor: "rgba(59,84,124,0.10)" }}
+        style={{ backgroundColor: "rgba(44,65,96,0.45)" }}
       />
 
-      {/* Soft white edge glow, very faint, framing the grid area. */}
+      {/* Sage edge glow, very faint, framing the grid area. */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(60% 45% at 50% 60%, transparent 55%, rgba(255,255,255,0.12) 78%, transparent 100%)",
+            "radial-gradient(60% 45% at 50% 60%, transparent 55%, rgba(109,187,156,0.08) 78%, transparent 100%)",
         }}
       />
 
-      {/* Single sparing navy accent line, near the vanishing point. */}
+      {/* Single sparing lime accent line, near the vanishing point. */}
       <div
         className="absolute left-1/2 h-px w-40 -translate-x-1/2"
         style={{
           bottom: "34%",
           background:
-            "linear-gradient(90deg, transparent 0%, rgba(59,84,124,0.30) 50%, transparent 100%)",
+            "linear-gradient(90deg, transparent 0%, rgba(183,207,70,0.35) 50%, transparent 100%)",
         }}
       />
 
@@ -147,7 +145,7 @@ export function MethodBackdrop() {
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(65% 55% at 50% 42%, rgba(59,84,124,0.06) 0%, transparent 70%), linear-gradient(to bottom, rgba(255,255,255,0.10) 0%, transparent 20%, transparent 75%, rgba(59,84,124,0.06) 100%)",
+            "radial-gradient(65% 55% at 50% 42%, rgba(26,39,64,0.35) 0%, transparent 70%), linear-gradient(to bottom, rgba(34,51,77,0.35) 0%, transparent 20%, transparent 75%, rgba(26,39,64,0.4) 100%)",
         }}
       />
 
