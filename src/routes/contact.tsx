@@ -55,10 +55,10 @@ function ContactPage() {
               href={business.emailHref}
               className="flex items-start gap-3 rounded-lg border border-border bg-card p-5 transition-colors hover:border-brand-teal"
             >
-              <Mail className="mt-1 h-5 w-5 text-brand-teal-text" aria-hidden />
-              <div>
+              <Mail className="mt-1 h-5 w-5 shrink-0 text-brand-teal-text" aria-hidden />
+              <div className="min-w-0">
                 <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Email</p>
-                <p className="break-all text-base font-bold text-foreground">{business.email}</p>
+                <p className="whitespace-nowrap text-sm font-bold text-foreground">{business.email}</p>
               </div>
             </a>
             <div className="flex items-start gap-3 rounded-lg border border-border bg-card p-5">

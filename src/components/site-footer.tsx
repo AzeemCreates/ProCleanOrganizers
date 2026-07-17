@@ -30,7 +30,7 @@ export function SiteFooter() {
               </a>
             </li>
             <li>
-              <a href={business.emailHref} className="hover:underline whitespace-nowrap">
+              <a href={business.emailHref} className="whitespace-nowrap text-xs hover:underline">
                 {business.email}
               </a>
             </li>
