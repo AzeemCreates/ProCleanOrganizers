@@ -108,6 +108,14 @@ export function HeroParallax() {
             Restored <span className="text-brand-lime">Calm.</span>
           </h1>
 
+          {/* Subhead */}
+          <div className="mt-8 flex justify-end">
+            <p className="max-w-md text-base leading-relaxed text-brand-teal drop-shadow-[0_1px_6px_rgba(15,23,42,0.6)] md:text-lg">
+              Free virtual consultations are always available, plus free
+              in-person visits within our service radius.
+            </p>
+          </div>
+
           <div className="mt-10 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-end">
             <Link
               to="/contact"
