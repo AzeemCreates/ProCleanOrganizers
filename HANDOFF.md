@@ -273,24 +273,97 @@ Live URL: https://procleanorganizers.pages.dev (custom domain not connected yet)
       scratch temp dir (never the site's `package.json`), process, copy output
       into `public/uploads/`, done.
 
+11. **Contact form email: fixed the actual Cloudflare-compatibility bug, not
+    just credentials (this session).** The pre-existing code
+    (`src/lib/mailer.ts`) looked complete but had two bugs that would have
+    made it silently never work in production, even with valid credentials:
+
+    - It read `process.env.SMTP_USER` etc. directly. **Cloudflare Pages never
+      populates `process.env` with dashboard secrets/bindings** — those are
+      only handed to the Worker's `fetch(request, env, ctx)` entry point
+      (see `src/lib/cloudflare-env.ts`'s own comment, which the file already
+      explained but `mailer.ts` didn't follow). Fixed by switching to
+      `getEnvVar()` from that file.
+    - It used **nodemailer's SMTP transport**, which does not run on
+      Cloudflare Workers — confirmed via
+      https://github.com/nodemailer/nodemailer/issues/1621 (it depends on
+      Node's raw `net`/`tls` sockets in a way `nodejs_compat` doesn't
+      polyfill). Replaced with **`worker-mailer`**
+      (https://github.com/zou-yu/worker-mailer), a small library that speaks
+      SMTP directly over Cloudflare's native TCP Sockets API
+      (`cloudflare:sockets`), which Cloudflare's OWN deploy-time bundler
+      resolves natively — confirmed this works via `npx wrangler pages dev`
+      (see below), NOT via `vite build`/`vite dev` alone, since plain Node has
+      no `cloudflare:sockets` and the Vite SSR build intentionally leaves npm
+      packages as external imports for Cloudflare's bundler to resolve later.
+      `nodemailer` and `@types/nodemailer` were removed as dependencies;
+      `worker-mailer` was added as a real dependency (not a throwaway).
+    - `worker-mailer`'s real API (checked against its `.d.ts`, not just its
+      README) uses `reply: { email }` for reply-to, not `replyTo` — and needs
+      `secure`/`startTls` set as an either/or pair (`secure: true` for
+      implicit-TLS port 465, `startTls: true` for STARTTLS port 587 — Gmail's
+      default). Get this wrong and mail will either not send or the library
+      will misnegotiate TLS.
+    - **How this was smoke-tested** (worth repeating if it needs re-verifying):
+      `bun run build`, then `npx wrangler pages dev dist/client
+      --compatibility-flags nodejs_compat --compatibility-date 2024-09-23`
+      (matching `wrangler.toml`) — this runs the REAL Workers runtime
+      (`workerd`) locally, unlike `vite dev`. Confirmed "✨ Compiled Worker
+      successfully" (proves `cloudflare:sockets` resolves), then
+      `curl -X POST http://localhost:8788/api/contact` with both
+      `formType: "contact"` and `formType: "booking"` payloads — both
+      returned `200 {"ok":true}`, and the server log showed the EXPECTED
+      graceful error `"SMTP_USER / SMTP_PASS are not set"` (not a crash,
+      not an import-resolution error) — proving the whole chain works and is
+      just waiting on real credentials.
+    - Destination was already correct before this session: both forms send to
+      `content.business.email` (currently `ProCleanOrganizers2020@gmail.com`
+      in the seed data), overridable via `CONTACT_TO_EMAIL`. Nothing needed to
+      change there — the owner's ask was really "make the pipes not leak,"
+      not "point it at the right address."
+    - **What's still needed, and can only come from the owner**: a real Gmail
+      App Password (`SMTP_USER` = his Gmail address, `SMTP_PASS` = the App
+      Password from https://myaccount.google.com/apppasswords, requires
+      2-Step Verification enabled first) added as Cloudflare Pages secrets
+      (`wrangler secret put SMTP_USER` / `SMTP_PASS`, or the dashboard). No
+      DNS changes are needed for this — it's Gmail sending as itself, not a
+      Cloudflare Email Service domain-verification setup (which was
+      considered and rejected for this task; see next bullet).
+    - **Why NOT Cloudflare Email Service** (the `cloudflare-email-service`
+      skill's own recommended approach) was used here: it requires the
+      **FROM domain** to be onboarded (`wrangler email sending enable
+      yourdomain.com`), which means new DNS records on procleanorganizers.com
+      — the same domain whose custom-domain connection is explicitly on hold,
+      and whose MX/SPF/DKIM were explicitly flagged as "verified untouched."
+      Adding an SPF-affecting record for a different purpose right now, for a
+      domain the owner said to leave alone, was judged out of scope without
+      asking first. If the owner ever wants to send FROM
+      `noreply@procleanorganizers.com` instead of relaying through Gmail,
+      that's the point to revisit Cloudflare Email Service — until then,
+      Gmail SMTP via `worker-mailer` is the correct, lower-risk choice.
+
 ## Where things stand as of the last message in this conversation
 
-See `STATUS.md` for the live checklist. Two commits exist locally that are
-**NOT pushed yet** — the owner explicitly said not to push until told:
+See `STATUS.md` for the live checklist. `origin/main` is at `d12c191`
+(Services methodology + NYC & NJ + Mercer tile — pushed and verified live
+earlier). Since then, **several more commits exist locally, NOT pushed**,
+per the owner's standing "don't push until I say so" instruction:
 
-- `d12c191` — Services methodology section, NYC & NJ + Mercer copy sweep,
-  2 staged images in `public/newaddImages-2026clean/` (this one WAS already
-  pushed and deployed; see below).
-- `293b063` — proof carousel + 8 cropped proof images + "Multiple" stat label.
-  **Local only, not pushed, not deployed.**
+```
+293b063  Add swipeable proof carousel to /portfolio (local review, not deployed)
+10cc7cd  Portfolio stat label -> "Multiple"; document carousel session
+e3db406  Simplify proof carousel static card to a single line
+d9127c9  Proof carousel: remove drag/swipe, add two arrows, trim intro copy
+2a0769c  Swap carousel photos 1 and 3; remove hero subhead line
+0c18336  Restore hero subhead
+68e6636  Fix email address wrapping/overflow on contact card and footer
+```
 
-To avoid confusion: `d12c191` (Services methodology + NYC & NJ + Mercer tile)
-**was** pushed and verified live earlier in the session. The proof carousel
-commit (`293b063`, plus this stat-label tweak) came after the owner said
-"don't push once you are done" — so **run `git log origin/main --oneline -1`
-first** to see exactly what's actually live before assuming anything in this
-doc is deployed. Do not push `293b063` (or anything after it) without asking
-the owner first.
+Plus the mailer.ts email fix (item 11 above) — **not yet committed** as of
+this writing; check `git status` before assuming it is. **Always run
+`git log origin/main --oneline -1` vs local `HEAD` before telling the owner
+anything is live** — this project has had real confusion from assuming a
+local commit was deployed.
 
 Also still pending: the licensing question on `proof-03` (stock 3D render),
 and a decision on whether the proof carousel should lead with all 8 images

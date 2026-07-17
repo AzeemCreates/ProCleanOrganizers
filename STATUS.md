@@ -17,7 +17,7 @@ pushed, per an explicit owner instruction. See "Local but NOT deployed" below.**
 | Copy | "NYC metro" swept to "NYC & NJ" sitewide |
 | Other pages (about/pricing/contact) | Working (verified: content, images, nav) |
 | `/admin` login | Working — password is in local `.env` (gitignored) and set as a Cloudflare Pages secret |
-| Contact form | Renders; SMTP **not configured**, submissions only console-log |
+| Contact form | Renders; email code is now Workers-compatible and smoke-tested (see HANDOFF item 11), but SMTP **credentials still not set** — submissions still only console-log until `SMTP_USER`/`SMTP_PASS` are added |
 | Content storage | Bundled seed JSON (`data/site-content.seed.json`) — **not KV yet** |
 | Admin saves | Do **not persist** — reset to seed on every redeploy until KV is bound |
 | Custom domain | **Not connected.** DNS for procleanorganizers.com already lives on Cloudflare (nameservers switched from Hostinger), but no domain is attached to the Pages project yet |
@@ -47,8 +47,15 @@ pushed, per an explicit owner instruction. See "Local but NOT deployed" below.**
 3. **Connect custom domain** (`procleanorganizers.com`) to the Pages project.
    Explicitly on hold — user said "not ready to connect the domain yet." DNS is
    pre-staged; MX/SPF/DKIM for Hostinger email were verified untouched.
-4. **SMTP for contact form** — needs `SMTP_USER` / `SMTP_PASS` (Gmail App Password)
-   added as Cloudflare Pages secrets. Owner hasn't generated one yet.
+4. **SMTP for contact form** — the CODE is fixed and smoke-tested this session
+   (see HANDOFF item 11): it now uses `worker-mailer` (Cloudflare-native SMTP,
+   since nodemailer's SMTP transport does not run on Workers) and reads
+   credentials via `getEnvVar()` (Cloudflare secrets), not `process.env` (which
+   was silently broken in production before). The ONLY remaining step is
+   getting real `SMTP_USER` / `SMTP_PASS` (a Gmail App Password) added as
+   Cloudflare Pages secrets — owner hasn't generated one yet. Both forms
+   already default to sending to `business.email`
+   (procleanorganizers2020@gmail.com), so no destination wiring is needed.
 5. **Photo uploads on Cloudflare** — `/admin` photo upload currently writes to
    `public/uploads/` via `node:fs`, which works locally but is a no-op/broken on
    Cloudflare (no writable filesystem). Needs R2 bucket + code change. Not started.

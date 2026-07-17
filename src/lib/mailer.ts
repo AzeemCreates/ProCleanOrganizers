@@ -1,9 +1,23 @@
-// Sends the contact/booking form notification email via SMTP (nodemailer).
-// Configure with env vars - see .env.example. Defaults to Gmail's SMTP when
-// only SMTP_USER/SMTP_PASS are set (the common case: a Gmail address + an
-// App Password), or uses an explicit SMTP_HOST for any other provider.
+// Sends the contact/booking form notification email over real SMTP.
+//
+// Cloudflare Workers cannot use nodemailer's SMTP transport (it depends on
+// Node's raw `net`/`tls` sockets in a way `nodejs_compat` does not polyfill -
+// see https://github.com/nodemailer/nodemailer/issues/1621). Instead we use
+// `worker-mailer`, which speaks SMTP directly over Cloudflare's native TCP
+// Sockets API (`cloudflare:sockets`), gated behind the same `nodejs_compat`
+// flag already set in wrangler.toml. This only runs in a real Workers
+// runtime (deployed, or `wrangler pages dev`) - plain `vite dev` (Node) has
+// no `cloudflare:sockets` and cannot send mail locally.
+//
+// Configure with env vars - see .env.example. Defaults to Gmail's SMTP
+// (smtp.gmail.com:587) when only SMTP_USER/SMTP_PASS are set (the common
+// case: a Gmail address + an App Password from
+// https://myaccount.google.com/apppasswords), or uses an explicit SMTP_HOST
+// for any other provider.
 
+import { WorkerMailer } from "worker-mailer";
 import { getRawSiteContent } from "@/lib/site-content";
+import { getEnvVar } from "@/lib/cloudflare-env";
 
 type ContactSubmission = {
   formType: "contact" | "booking";
@@ -15,9 +29,9 @@ type ContactSubmission = {
   message: string;
 };
 
-async function getTransport() {
-  const nodemailer = await import("nodemailer");
-  const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS } = process.env;
+export async function sendContactNotification(submission: ContactSubmission) {
+  const SMTP_USER = getEnvVar("SMTP_USER");
+  const SMTP_PASS = getEnvVar("SMTP_PASS");
 
   if (!SMTP_USER || !SMTP_PASS) {
     throw new Error(
@@ -25,28 +39,12 @@ async function getTransport() {
     );
   }
 
-  if (SMTP_HOST) {
-    return nodemailer.createTransport({
-      host: SMTP_HOST,
-      port: SMTP_PORT ? Number(SMTP_PORT) : 587,
-      secure: Number(SMTP_PORT) === 465,
-      auth: { user: SMTP_USER, pass: SMTP_PASS },
-    });
-  }
+  const SMTP_HOST = getEnvVar("SMTP_HOST") || "smtp.gmail.com";
+  const SMTP_PORT = Number(getEnvVar("SMTP_PORT") || "587");
+  const from = getEnvVar("SMTP_FROM") || SMTP_USER;
 
-  // No host configured - assume Gmail (SMTP_USER is a gmail address with an
-  // App Password, per https://myaccount.google.com/apppasswords).
-  return nodemailer.createTransport({
-    service: "gmail",
-    auth: { user: SMTP_USER, pass: SMTP_PASS },
-  });
-}
-
-export async function sendContactNotification(submission: ContactSubmission) {
-  const transport = await getTransport();
   const content = await getRawSiteContent();
-  const to = process.env.CONTACT_TO_EMAIL || content.business.email;
-  const from = process.env.SMTP_FROM || process.env.SMTP_USER;
+  const to = getEnvVar("CONTACT_TO_EMAIL") || content.business.email;
 
   const subject =
     submission.formType === "booking"
@@ -64,11 +62,28 @@ export async function sendContactNotification(submission: ContactSubmission) {
     submission.message,
   ].filter(Boolean);
 
-  await transport.sendMail({
-    to,
-    from,
-    replyTo: submission.email,
-    subject,
-    text: lines.join("\n"),
+  const implicitTls = SMTP_PORT === 465;
+  const mailer = await WorkerMailer.connect({
+    credentials: { username: SMTP_USER, password: SMTP_PASS },
+    authType: "plain",
+    host: SMTP_HOST,
+    port: SMTP_PORT,
+    // Port 465 uses TLS from the start of the connection; port 587 (Gmail's
+    // default, and most providers') connects in plaintext and upgrades via
+    // STARTTLS - only one of these should be set, not both.
+    secure: implicitTls,
+    startTls: !implicitTls,
   });
+
+  try {
+    await mailer.send({
+      from: { email: from },
+      to: { email: to },
+      reply: { email: submission.email },
+      subject,
+      text: lines.join("\n"),
+    });
+  } finally {
+    await mailer.close();
+  }
 }
