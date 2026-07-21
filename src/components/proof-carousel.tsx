@@ -24,7 +24,6 @@ import {
 const CAROUSEL_OPTS = { align: "start" as const, dragFree: false, watchDrag: false };
 
 const PROOF: { src: string; alt: string }[] = [
-  { src: "/uploads/proof/proof-03.webp", alt: "Fully organized walk-in closet with categorized clothing" },
   { src: "/uploads/proof/proof-02.webp", alt: "Color-sorted folded shelving in a calm, organized closet" },
   { src: "/uploads/proof/proof-01.webp", alt: "Organized, labeled storage system built by ProClean Organizers" },
   { src: "/uploads/proof/proof-04.webp", alt: "Cleared and cleaned basement utility room" },

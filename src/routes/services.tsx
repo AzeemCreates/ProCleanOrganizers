@@ -55,13 +55,23 @@ function ServicesPage() {
   const { serviceCategories } = useSiteContent();
   return (
     <SiteShell>
-      <section className="border-b border-border bg-muted/40">
-        <div className="mx-auto max-w-4xl px-4 py-20 md:px-6">
-          <p className="text-sm font-bold uppercase tracking-wider text-brand-teal-text">Services</p>
-          <h1 className="mt-3 text-4xl font-bold text-foreground md:text-5xl">
+      <section className="relative overflow-hidden border-b border-border">
+        <img
+          src="/uploads/services-hero-bg.webp"
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover"
+          aria-hidden
+        />
+        <div
+          className="absolute inset-0 bg-gradient-to-r from-primary/75 via-primary/85 to-primary/95"
+          aria-hidden
+        />
+        <div className="relative mx-auto max-w-4xl px-4 py-20 md:px-6">
+          <p className="text-sm font-bold uppercase tracking-wider text-brand-lime">Services</p>
+          <h1 className="mt-3 text-4xl font-bold text-white md:text-5xl">
             A complete catalog, grouped by where we work
           </h1>
-          <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
+          <p className="mt-6 text-lg leading-relaxed text-white/85">
             Any individual service can be added to a package or booked on its own. Typical session
             length is shown for planning purposes; the exact scope and price are confirmed after
             your free consultation.
