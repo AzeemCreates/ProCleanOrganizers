@@ -15,7 +15,6 @@
 // https://myaccount.google.com/apppasswords), or uses an explicit SMTP_HOST
 // for any other provider.
 
-import { WorkerMailer } from "worker-mailer";
 import { getRawSiteContent } from "@/lib/site-content";
 import { getEnvVar } from "@/lib/cloudflare-env";
 
@@ -61,6 +60,16 @@ export async function sendContactNotification(submission: ContactSubmission) {
     "",
     submission.message,
   ].filter(Boolean);
+
+  // Dynamic import, not a top-level one: worker-mailer's own module touches
+  // `cloudflare:sockets` as soon as it's loaded, which doesn't exist under
+  // plain Node (`vite dev`). A top-level import crashed EVERY route in local
+  // dev, not just the contact form, because the whole module graph got
+  // evaluated on server start. Deferring the import until a submission
+  // actually needs to send keeps local dev working for everything else;
+  // real sending still only works under a real Workers runtime (deployed,
+  // or `wrangler pages dev`), which is the documented limitation above.
+  const { WorkerMailer } = await import("worker-mailer");
 
   const implicitTls = SMTP_PORT === 465;
   const mailer = await WorkerMailer.connect({
