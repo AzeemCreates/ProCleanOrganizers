@@ -30,20 +30,35 @@ function AboutPage() {
   return (
     <SiteShell>
       <section className="border-b border-border bg-muted/40">
-        <div className="mx-auto max-w-4xl px-4 py-20 md:px-6">
-          <p className="text-sm font-bold uppercase tracking-wider text-brand-teal-text">About</p>
-          <h1 className="mt-3 text-4xl font-bold text-foreground md:text-5xl">
-            Meet the organizer behind {business.name}
-          </h1>
-          <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-            {business.owner} is the Independent Owner and Operator of {business.name}, a
-            professional organizing, space design, and time management company established in {business.established}.
-            Certified through IAP Career College and backed by years of hands-on experience, he
-            specializes in building clean, functional, and sustainable organizing systems that help
-            clients reduce stress, save time, and improve their quality of life. He is driven by
-            a passion for helping people create environments that support productivity, clarity,
-            and peace of mind.
-          </p>
+        <div className="mx-auto grid max-w-5xl gap-10 px-4 py-20 md:grid-cols-[1.3fr_1fr] md:items-center md:px-6">
+          <div>
+            <p className="text-sm font-bold uppercase tracking-wider text-brand-teal-text">About</p>
+            <h1 className="mt-3 text-4xl font-bold text-foreground md:text-5xl">
+              Meet the organizer behind {business.name}
+            </h1>
+            <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
+              {business.owner} is the Independent Owner and Operator of {business.name}, a
+              professional organizing, space design, and time management company established in {business.established}.
+              Certified through IAP Career College and backed by years of hands-on experience, he
+              specializes in building clean, functional, and sustainable organizing systems that help
+              clients reduce stress, save time, and improve their quality of life. He is driven by
+              a passion for helping people create environments that support productivity, clarity,
+              and peace of mind.
+            </p>
+          </div>
+          <div className="mx-auto w-full max-w-sm">
+            <div className="rounded-lg border border-border bg-card p-3 shadow-sm">
+              <img
+                src="/uploads/certificate.webp"
+                alt="IAP Career College Professional Organizer certificate awarded to Mujahid Abdellah"
+                className="w-full rounded"
+                loading="lazy"
+              />
+            </div>
+            <p className="mt-3 text-center text-xs font-semibold uppercase tracking-wide text-brand-teal-text">
+              IAP Career College &middot; Professional Organizer
+            </p>
+          </div>
         </div>
       </section>
 
