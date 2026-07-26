@@ -99,34 +99,34 @@ function ServicesPage() {
           {/* Two phases */}
           <div className="mt-16 grid grid-cols-1 items-stretch gap-8 md:grid-cols-[1fr_auto_1fr] md:gap-6">
             {/* Phase 1 — Clean First */}
-            <Reveal index={0} className="h-full">
-              <div className="flex h-full flex-col rounded-2xl border border-brand-teal/30 bg-brand-teal-soft p-8 md:p-10">
+            <div className="h-full">
+              <div className="flex h-full flex-col rounded-2xl bg-brand-lime p-8 md:p-10">
                 <div className="flex items-center gap-4">
-                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-brand-teal text-primary">
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary text-brand-lime">
                     <Sparkles className="h-6 w-6" aria-hidden />
                   </span>
                   <div>
-                    <p className="text-xs font-bold uppercase tracking-[0.2em] text-brand-teal-text">
+                    <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">
                       Phase 01
                     </p>
                     <h3 className="text-2xl font-bold text-primary">Clean First</h3>
                   </div>
                 </div>
-                <p className="mt-5 text-sm leading-relaxed text-brand-deep-teal">
+                <p className="mt-5 text-sm leading-relaxed text-primary/80">
                   Before any organizing begins, Mujahid prepares the space so the systems
                   we build sit on a fresh, sanitary foundation. This is what separates
                   ProClean from generic organizers.
                 </p>
                 <ul className="mt-6 grid gap-2.5 sm:grid-cols-2">
                   {CLEAN_STEPS.map((t) => (
-                    <li key={t} className="flex items-center gap-2 text-sm font-medium text-foreground">
-                      <Check className="h-4 w-4 shrink-0 text-brand-teal-text" aria-hidden />
+                    <li key={t} className="flex items-center gap-2 text-sm font-medium text-primary">
+                      <Check className="h-4 w-4 shrink-0 text-primary" aria-hidden />
                       {t}
                     </li>
                   ))}
                 </ul>
               </div>
-            </Reveal>
+            </div>
 
             {/* Connector */}
             <div className="flex items-center justify-center" aria-hidden>
@@ -136,7 +136,7 @@ function ServicesPage() {
             </div>
 
             {/* Phase 2 — Organize Second */}
-            <Reveal index={1} className="h-full">
+            <div className="h-full">
               <div className="flex h-full flex-col rounded-2xl bg-primary p-8 text-primary-foreground md:p-10">
                 <div className="flex items-center gap-4">
                   <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-brand-lime text-primary">
@@ -162,7 +162,7 @@ function ServicesPage() {
                   ))}
                 </ul>
               </div>
-            </Reveal>
+            </div>
           </div>
 
           {/* Pull quote */}
@@ -176,24 +176,24 @@ function ServicesPage() {
 
           {/* Post-service follow-up trust card */}
           <Reveal index={0}>
-            <div className="mt-16 rounded-2xl border border-border bg-muted/50 p-8 md:p-10">
+            <div className="mt-16 rounded-2xl bg-primary p-8 text-primary-foreground md:p-10">
               <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
                 <div className="max-w-md">
                   <div className="flex items-center gap-3">
-                    <CalendarCheck className="h-6 w-6 shrink-0 text-brand-teal-text" aria-hidden />
-                    <h3 className="text-xl font-bold text-foreground">Post-service follow-up</h3>
+                    <CalendarCheck className="h-6 w-6 shrink-0 text-brand-lime" aria-hidden />
+                    <h3 className="text-xl font-bold text-white">Post-service follow-up</h3>
                   </div>
-                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                  <p className="mt-3 text-sm leading-relaxed text-primary-foreground/80">
                     Your systems should keep working long after we leave. Every client
                     receives scheduled check-ins to fine tune and maintain what we built
                     together.
                   </p>
                 </div>
-                <div className="grid w-full grid-cols-3 gap-3 md:w-auto">
+                <div className="grid w-full grid-cols-3 gap-6 md:w-auto">
                   {["3", "6", "9"].map((m) => (
                     <div
                       key={m}
-                      className="flex flex-col items-center gap-1 rounded-xl border border-brand-teal/30 bg-card px-4 py-5 text-center md:min-w-24"
+                      className="flex flex-col items-center gap-1 rounded-xl bg-card px-4 py-5 text-center md:min-w-24"
                     >
                       <span className="text-3xl font-bold text-primary">{m}</span>
                       <span className="text-xs font-semibold uppercase tracking-wide text-brand-teal-text">
@@ -209,7 +209,7 @@ function ServicesPage() {
       </section>
 
       <section className="mx-auto max-w-4xl px-4 py-20 md:px-6">
-        <Accordion type="multiple" defaultValue={[serviceCategories[0].category]}>
+        <Accordion type="multiple">
           {serviceCategories.map((cat) => (
             <AccordionItem key={cat.category} value={cat.category}>
               <AccordionTrigger className="text-left">
