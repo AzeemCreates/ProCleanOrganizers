@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteShell } from "@/components/site-shell";
 import { BookingForm, ContactForm } from "@/components/contact-forms";
 import { useSiteContent } from "@/lib/site-content-context";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -28,7 +28,7 @@ export const Route = createFileRoute("/contact")({
 function ContactPage() {
   const { business } = useSiteContent();
   return (
-    <SiteShell>
+    <SiteShell compactFooter>
       <section className="border-b border-border bg-muted/40">
         <div className="mx-auto max-w-6xl px-4 py-20 md:px-6">
           <p className="text-sm font-bold uppercase tracking-wider text-brand-teal-text">Contact</p>
@@ -68,33 +68,24 @@ function ContactPage() {
 
       {/* CONTACT STRIP */}
       <section className="bg-brand-lime text-primary">
-        {/* Full-bleed on purpose (no max-w-6xl): the strip reads as a bar, so
-            Phone starts flush at the left edge and Service Area runs out to the
-            right instead of the trio sitting centered with dead lime on both sides. */}
-        <div className="grid items-center gap-x-10 gap-y-3 px-5 py-4 md:grid-cols-[auto_auto] md:px-8 lg:px-12">
-          <a href={business.phoneHref} className="flex items-center gap-2.5 hover:underline">
-            <Phone className="h-4 w-4 shrink-0" aria-hidden />
+        {/* Phone + Email only, centered as a pair in the middle of the bar. The
+            service-area summary was dropped from here to keep the strip a single
+            clean line; it still renders in the site footer. */}
+        <div className="flex flex-col items-center gap-4 px-5 py-5 md:flex-row md:justify-center md:gap-16 md:px-8">
+          <a href={business.phoneHref} className="flex items-center gap-3 hover:underline">
+            <Phone className="h-5 w-5 shrink-0" aria-hidden />
             <div className="min-w-0">
-              <p className="text-[0.65rem] font-bold uppercase tracking-[0.15em]">Phone</p>
-              <p className="text-sm font-bold">{business.phone}</p>
+              <p className="text-xs font-bold uppercase tracking-[0.15em]">Phone</p>
+              <p className="text-base font-bold md:text-lg">{business.phone}</p>
             </div>
           </a>
-          <a href={business.emailHref} className="flex items-center gap-2.5 hover:underline">
-            <Mail className="h-4 w-4 shrink-0" aria-hidden />
+          <a href={business.emailHref} className="flex items-center gap-3 hover:underline">
+            <Mail className="h-5 w-5 shrink-0" aria-hidden />
             <div className="min-w-0">
-              <p className="text-[0.65rem] font-bold uppercase tracking-[0.15em]">Email</p>
-              <p className="truncate text-sm font-bold">{business.email}</p>
+              <p className="text-xs font-bold uppercase tracking-[0.15em]">Email</p>
+              <p className="truncate text-base font-bold md:text-lg">{business.email}</p>
             </div>
           </a>
-          {/* Own full-width row: on its own line it starts at the same left edge
-              as Phone and has room for the whole service list without wrapping. */}
-          <div className="flex items-center gap-2.5 md:col-span-2">
-            <MapPin className="h-4 w-4 shrink-0" aria-hidden />
-            <div className="min-w-0">
-              <p className="text-[0.65rem] font-bold uppercase tracking-[0.15em]">Service Area</p>
-              <p className="text-sm leading-snug text-primary/80">{business.serviceAreaSummary}</p>
-            </div>
-          </div>
         </div>
       </section>
     </SiteShell>

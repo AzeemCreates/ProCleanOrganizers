@@ -4,7 +4,7 @@ import { Facebook, Globe } from "lucide-react";
 import { useSiteContent } from "@/lib/site-content-context";
 import { getCurrentLang, toggleLanguage } from "@/lib/translate";
 
-export function SiteFooter() {
+export function SiteFooter({ compact = false }: { compact?: boolean }) {
   const { business } = useSiteContent();
   const [lang, setLang] = useState<"en" | "es">("en");
   useEffect(() => {
@@ -12,7 +12,11 @@ export function SiteFooter() {
   }, []);
   return (
     <footer className="border-t border-border bg-primary text-primary-foreground">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 md:grid-cols-[1fr_1.35fr_1fr] md:px-6">
+      <div
+        className={`mx-auto grid max-w-6xl px-4 md:grid-cols-[1fr_1.35fr_1fr] md:px-6 ${
+          compact ? "gap-8 py-7" : "gap-10 py-12"
+        }`}
+      >
         <div>
           <p className="text-xl font-bold">{business.name}</p>
           <p className="mt-1 text-sm opacity-90">{business.slogan}</p>
@@ -60,7 +64,11 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="border-t border-primary-foreground/20">
-        <p className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-2 px-4 py-4 text-center text-xs opacity-80 md:px-6">
+        <p
+          className={`mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-2 px-4 text-center text-xs opacity-80 md:px-6 ${
+            compact ? "py-3" : "py-4"
+          }`}
+        >
           <span>
             &copy; {new Date().getFullYear()} {business.name}. All rights reserved.
           </span>

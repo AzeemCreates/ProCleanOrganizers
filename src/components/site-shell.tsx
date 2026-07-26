@@ -2,7 +2,15 @@ import type { ReactNode } from "react";
 import { SiteHeader } from "./site-header";
 import { SiteFooter } from "./site-footer";
 
-export function SiteShell({ children }: { children: ReactNode }) {
+export function SiteShell({
+  children,
+  compactFooter = false,
+}: {
+  children: ReactNode;
+  /** Trims the footer's vertical padding — used where the page already ends on a
+   *  navy band and the default spacing reads as dead space. */
+  compactFooter?: boolean;
+}) {
   return (
     <div className="flex min-h-screen flex-col">
       <a
@@ -15,7 +23,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
       <main id="main" className="flex-1 pt-16">
         {children}
       </main>
-      <SiteFooter />
+      <SiteFooter compact={compactFooter} />
     </div>
   );
 }
