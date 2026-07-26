@@ -64,33 +64,35 @@ function ContactPage() {
             </div>
           </div>
         </div>
+      </section>
 
-        <div className="mt-12 grid gap-3 md:grid-cols-3">
-          <a
-            href={business.phoneHref}
-            className="flex items-start gap-2.5 rounded-lg border border-border bg-card px-4 py-3 transition-colors hover:border-brand-teal"
-          >
-            <Phone className="mt-0.5 h-4 w-4 shrink-0 text-brand-teal-text" aria-hidden />
+      {/* CONTACT STRIP */}
+      <section className="bg-brand-lime text-primary">
+        {/* Full-bleed on purpose (no max-w-6xl): the strip reads as a bar, so
+            Phone starts flush at the left edge and Service Area runs out to the
+            right instead of the trio sitting centered with dead lime on both sides. */}
+        <div className="grid items-center gap-x-10 gap-y-3 px-5 py-4 md:grid-cols-[auto_auto] md:px-8 lg:px-12">
+          <a href={business.phoneHref} className="flex items-center gap-2.5 hover:underline">
+            <Phone className="h-4 w-4 shrink-0" aria-hidden />
             <div className="min-w-0">
-              <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Phone</p>
-              <p className="text-sm font-bold text-foreground">{business.phone}</p>
+              <p className="text-[0.65rem] font-bold uppercase tracking-[0.15em]">Phone</p>
+              <p className="text-sm font-bold">{business.phone}</p>
             </div>
           </a>
-          <a
-            href={business.emailHref}
-            className="flex items-start gap-2.5 rounded-lg border border-border bg-card px-4 py-3 transition-colors hover:border-brand-teal"
-          >
-            <Mail className="mt-0.5 h-4 w-4 shrink-0 text-brand-teal-text" aria-hidden />
+          <a href={business.emailHref} className="flex items-center gap-2.5 hover:underline">
+            <Mail className="h-4 w-4 shrink-0" aria-hidden />
             <div className="min-w-0">
-              <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Email</p>
-              <p className="truncate text-sm font-bold text-foreground">{business.email}</p>
+              <p className="text-[0.65rem] font-bold uppercase tracking-[0.15em]">Email</p>
+              <p className="truncate text-sm font-bold">{business.email}</p>
             </div>
           </a>
-          <div className="flex items-start gap-2.5 rounded-lg border border-border bg-card px-4 py-3">
-            <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-brand-teal-text" aria-hidden />
+          {/* Own full-width row: on its own line it starts at the same left edge
+              as Phone and has room for the whole service list without wrapping. */}
+          <div className="flex items-center gap-2.5 md:col-span-2">
+            <MapPin className="h-4 w-4 shrink-0" aria-hidden />
             <div className="min-w-0">
-              <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Service Area</p>
-              <p className="text-sm leading-snug text-foreground">{business.serviceAreaSummary}</p>
+              <p className="text-[0.65rem] font-bold uppercase tracking-[0.15em]">Service Area</p>
+              <p className="text-sm leading-snug text-primary/80">{business.serviceAreaSummary}</p>
             </div>
           </div>
         </div>

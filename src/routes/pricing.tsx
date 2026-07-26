@@ -156,7 +156,7 @@ function PricingPage() {
 
       {/* ============ REAL RESULTS (before/after photo break) ============ */}
       <section className="border-t border-border bg-brand-teal-soft">
-        <div className="mx-auto grid max-w-6xl gap-10 px-4 py-16 md:grid-cols-2 md:items-center md:px-6 md:py-24">
+        <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 md:grid-cols-2 md:items-center md:px-6 md:py-16">
           <Reveal index={0}>
             <div className="grid grid-cols-2 gap-4">
               <div>
@@ -212,7 +212,7 @@ function PricingPage() {
 
       {/* A la carte */}
       <section className="border-t border-border bg-brand-teal-soft">
-        <div className="mx-auto max-w-4xl px-4 py-16 md:px-6">
+        <div className="mx-auto max-w-4xl px-4 py-10 md:px-6 md:py-12">
           <h2 className="text-2xl font-bold text-foreground md:text-3xl">À La Carte</h2>
           <p className="mt-3 text-muted-foreground">
             Any individual service from the catalog can be added to a package or booked on its own.

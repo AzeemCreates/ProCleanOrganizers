@@ -159,7 +159,7 @@ function HomePage() {
       </section>
 
       {/* ============ WHY PROCLEAN (deep teal-navy gradient with accordion) ============ */}
-      <section className="bg-gradient-to-br from-primary to-brand-deep-teal text-primary-foreground">
+      <section className="bg-primary text-primary-foreground">
         <div className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24">
           <div className="max-w-2xl">
             <h2 className="text-3xl font-bold tracking-tight md:text-4xl">Why ProClean?</h2>
@@ -211,8 +211,10 @@ function HomePage() {
       </section>
 
       {/* ============ SUSTAINABILITY / VALUES (green with image feel) ============ */}
-      <section className="bg-primary text-primary-foreground">
-        <div className="mx-auto grid max-w-6xl gap-10 px-4 py-16 md:grid-cols-2 md:items-center md:px-6 md:py-24">
+      {/* Pinned to the literal Slate Navy hex rather than bg-primary: the oklch
+          primary token paints #40567f, five points per channel off brand #3b547c. */}
+      <section className="bg-[#3b547c] text-primary-foreground">
+        <div className="mx-auto grid max-w-6xl gap-10 px-4 py-10 md:grid-cols-2 md:items-center md:px-6 md:py-12">
           <div className="aspect-[4/3] w-full overflow-hidden rounded-lg bg-primary-foreground/5">
             <img
               src={sustainabilityImage}
