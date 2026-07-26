@@ -45,7 +45,7 @@ function PricingPage() {
   const { packages } = useSiteContent();
   return (
     <SiteShell>
-      {/* ============ HERO (photo, neutral navy scrim) ============ */}
+      {/* ============ HERO (photo, neutral scrim - no brand-color tint) ============ */}
       <section className="relative overflow-hidden border-b border-border">
         <img
           src="/uploads/proof/proof-02.webp"
@@ -54,7 +54,7 @@ function PricingPage() {
           aria-hidden
         />
         <div
-          className="absolute inset-0 bg-gradient-to-r from-primary/70 via-primary/80 to-primary/90"
+          className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/60 to-black/70"
           aria-hidden
         />
         <div className="relative mx-auto max-w-4xl px-4 py-20 md:px-6">

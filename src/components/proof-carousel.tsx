@@ -35,7 +35,7 @@ const PROOF: { src: string; alt: string }[] = [
 export function ProofCarousel() {
   return (
     <section className="relative overflow-hidden bg-primary text-primary-foreground">
-      <div className="mx-auto max-w-6xl px-4 pb-12 pt-4 md:px-6 md:pb-14 md:pt-6">
+      <div className="mx-auto max-w-6xl px-4 pb-8 pt-4 md:px-6 md:pb-10 md:pt-6">
         <Carousel opts={CAROUSEL_OPTS}>
           {/* Two circular arrows, pinned to the edges — the only way to navigate */}
           <CarouselPrevious

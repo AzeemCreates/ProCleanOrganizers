@@ -39,36 +39,6 @@ function ContactPage() {
             Send us a message or request a booking below. Virtual consultations are always free,
             and in-person consultations are free within a reasonable service radius.
           </p>
-
-          <div className="mt-10 grid gap-4 md:grid-cols-3">
-            <a
-              href={business.phoneHref}
-              className="flex items-center gap-3 rounded-lg border border-border bg-card p-5 transition-colors hover:border-brand-teal"
-            >
-              <Phone className="h-5 w-5 text-brand-teal-text" aria-hidden />
-              <div>
-                <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Phone</p>
-                <p className="text-base font-bold text-foreground">{business.phone}</p>
-              </div>
-            </a>
-            <a
-              href={business.emailHref}
-              className="flex items-center gap-3 rounded-lg border border-border bg-card p-5 transition-colors hover:border-brand-teal"
-            >
-              <Mail className="h-5 w-5 shrink-0 text-brand-teal-text" aria-hidden />
-              <div className="min-w-0">
-                <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Email</p>
-                <p className="whitespace-nowrap text-sm font-bold text-foreground">{business.email}</p>
-              </div>
-            </a>
-            <div className="flex items-start gap-3 rounded-lg border border-border bg-card p-5">
-              <MapPin className="mt-1 h-5 w-5 text-brand-teal-text" aria-hidden />
-              <div>
-                <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Service Area</p>
-                <p className="text-base text-foreground">{business.serviceAreaSummary}</p>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -91,6 +61,36 @@ function ContactPage() {
             </p>
             <div className="mt-6 rounded-lg border border-border bg-card p-6">
               <BookingForm />
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-12 grid gap-3 md:grid-cols-3">
+          <a
+            href={business.phoneHref}
+            className="flex items-start gap-2.5 rounded-lg border border-border bg-card px-4 py-3 transition-colors hover:border-brand-teal"
+          >
+            <Phone className="mt-0.5 h-4 w-4 shrink-0 text-brand-teal-text" aria-hidden />
+            <div className="min-w-0">
+              <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Phone</p>
+              <p className="text-sm font-bold text-foreground">{business.phone}</p>
+            </div>
+          </a>
+          <a
+            href={business.emailHref}
+            className="flex items-start gap-2.5 rounded-lg border border-border bg-card px-4 py-3 transition-colors hover:border-brand-teal"
+          >
+            <Mail className="mt-0.5 h-4 w-4 shrink-0 text-brand-teal-text" aria-hidden />
+            <div className="min-w-0">
+              <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Email</p>
+              <p className="truncate text-sm font-bold text-foreground">{business.email}</p>
+            </div>
+          </a>
+          <div className="flex items-start gap-2.5 rounded-lg border border-border bg-card px-4 py-3">
+            <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-brand-teal-text" aria-hidden />
+            <div className="min-w-0">
+              <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Service Area</p>
+              <p className="text-sm leading-snug text-foreground">{business.serviceAreaSummary}</p>
             </div>
           </div>
         </div>

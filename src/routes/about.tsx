@@ -62,7 +62,7 @@ function AboutPage() {
         </div>
       </section>
 
-      <section className="bg-gradient-to-br from-primary to-brand-deep-teal text-primary-foreground">
+      <section className="bg-primary text-primary-foreground">
         <div className="mx-auto max-w-4xl px-4 py-20 md:px-6">
           <p className="text-sm font-bold uppercase tracking-wider text-brand-lime">Mission Statement</p>
           <h2 className="mt-3 text-3xl font-bold md:text-4xl">Why we do this</h2>
