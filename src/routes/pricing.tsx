@@ -99,8 +99,8 @@ function PricingPage() {
             </div>
             <div className="relative hidden min-h-[220px] md:block">
               <img
-                src="/uploads/decluttering.webp"
-                alt="Labeled storage totes organized on a shelf"
+                src="/uploads/free-consultation-closet.jpg"
+                alt="Organized closet with color-coded clothing, folded items, and labeled storage"
                 className="absolute inset-0 h-full w-full object-cover"
                 loading="lazy"
               />
