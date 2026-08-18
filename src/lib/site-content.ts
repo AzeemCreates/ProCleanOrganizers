@@ -143,15 +143,23 @@ async function saveContent(data: SiteContent): Promise<void> {
     await kv.put(KV_KEY, JSON.stringify(data));
     return;
   }
-  // Local Node dev: write runtime file. On Cloudflare without KV, this is a
-  // no-op fs write that fails silently — admin saves won't persist until KV is wired up.
+  // Local Node dev: write runtime file so changes persist across restarts.
   try {
     const { writeFile } = await import("node:fs/promises");
     const { join } = await import("node:path");
     await writeFile(join(process.cwd(), RUNTIME_PATH), JSON.stringify(data, null, 2) + "\n", "utf-8");
+    return;
   } catch {
-    // No filesystem access — nothing we can do until SITE_CONTENT KV is bound.
+    // No filesystem access — most likely Cloudflare, where there is none.
   }
+  // Neither KV nor a writable filesystem is available: there is nowhere to
+  // persist this save. Throw instead of returning silently so the caller
+  // reports failure — previously this returned as if the save succeeded.
+  throw new Error(
+    "Changes were not saved: no persistent storage is configured for this site. " +
+      "Bind a KV namespace named SITE_CONTENT to the Cloudflare Pages project " +
+      "(Settings -> Bindings), then try saving again.",
+  );
 }
 
 // ---------------------------------------------------------------------------

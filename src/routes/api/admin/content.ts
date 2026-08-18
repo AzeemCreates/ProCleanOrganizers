@@ -32,7 +32,13 @@ export const Route = createFileRoute("/api/admin/content")({
           );
         }
 
-        await writeSiteContent({ data: parsed.data });
+        try {
+          await writeSiteContent({ data: parsed.data });
+        } catch (err) {
+          console.error("[admin:content:save]", err);
+          const message = err instanceof Error ? err.message : "Save failed";
+          return Response.json({ ok: false, error: message }, { status: 500 });
+        }
         return Response.json({ ok: true });
       },
     },
