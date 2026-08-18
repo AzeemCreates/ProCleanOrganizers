@@ -135,9 +135,16 @@ function Editor({ initial }: { initial: SiteContent }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(content),
       });
-      const data = (await res.json()) as { ok: boolean; error?: string };
+      const data = (await res.json()) as {
+        ok: boolean;
+        error?: string;
+        issues?: { path: (string | number)[]; message: string }[];
+      };
       if (!res.ok || !data.ok) {
-        toast.error(data.error ?? "Save failed");
+        const detail = data.issues?.length
+          ? " — " + data.issues.map((i) => `${i.path.join(".") || "field"}: ${i.message}`).join("; ")
+          : "";
+        toast.error((data.error ?? "Save failed") + detail);
         return;
       }
       toast.success("Saved. Your site is now updated.");
@@ -349,7 +356,7 @@ function MethodTab({ content, update }: TabProps) {
         onClick={() =>
           update((c) => ({
             ...c,
-            methodSteps: [...c.methodSteps, { name: "New Step", description: "" }],
+            methodSteps: [...c.methodSteps, { name: "New Step", description: "Describe this step." }],
           }))
         }
       >
@@ -499,7 +506,7 @@ function ServicesTab({ content, update }: TabProps) {
                         ...cc,
                         services: [
                           ...cc.services,
-                          { name: "New Service", description: "", session: "2 to 4 hours" },
+                          { name: "New Service", description: "Describe this service.", session: "2 to 4 hours" },
                         ],
                       }
                     : cc,
@@ -520,7 +527,13 @@ function ServicesTab({ content, update }: TabProps) {
             ...c,
             serviceCategories: [
               ...c.serviceCategories,
-              { category: "New Category", image: "/uploads/placeholder-photo.svg", services: [] },
+              {
+                category: "New Category",
+                image: "/uploads/placeholder-photo.svg",
+                services: [
+                  { name: "New Service", description: "Describe this service.", session: "2 to 4 hours" },
+                ],
+              },
             ],
           }))
         }
@@ -627,7 +640,10 @@ function PricingTab({ content, update }: TabProps) {
         onClick={() =>
           update((c) => ({
             ...c,
-            packages: [...c.packages, { name: "New Package", summary: "", includes: [] }],
+            packages: [
+              ...c.packages,
+              { name: "New Package", summary: "Describe this package.", includes: ["New line item"] },
+            ],
           }))
         }
       >
@@ -812,10 +828,10 @@ function PortfolioTab({ content, update }: TabProps) {
               {
                 title: "New Project",
                 location: "ProClean Project",
-                scope: "",
+                scope: "Add scope (e.g. Bed, floor zone, closet)",
                 before: "/uploads/placeholder-photo.svg",
                 after: "/uploads/placeholder-photo.svg",
-                notes: "",
+                notes: "Add notes about this project.",
               },
             ],
           }))
