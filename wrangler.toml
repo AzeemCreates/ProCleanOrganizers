@@ -23,9 +23,9 @@ compatibility_flags = ["nodejs_compat"]
 # ALTERNATIVE (config-based): if the dashboard shows KV bindings as "managed by
 # wrangler.toml", paste the namespace ID below and uncomment this block instead.
 # ---------------------------------------------------------------------------
-# [[kv_namespaces]]
-# binding = "SITE_CONTENT"
-# id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
+[[kv_namespaces]]
+binding = "SITE_CONTENT"
+id = "871afb8f5784405e8f86c4ba44579097"
 
 # ---------------------------------------------------------------------------
 # CUSTOM DOMAIN — procleanorganizers.com  (NOT connected yet — do not enable)
